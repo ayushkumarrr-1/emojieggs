@@ -46,73 +46,6 @@ export default function Customizer() {
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [orderSent, setOrderSent] = useState(false);
-
-  // Geolocation & Delivery Charge States
-  const [distance, setDistance] = useState<number>(0);
-  const [deliveryCharge, setDeliveryCharge] = useState<number>(0);
-  const [locating, setLocating] = useState<boolean>(false);
-  const [storeLocation, setStoreLocation] = useState<{ lat: number; lng: number }>({ lat: 19.0760, lng: 72.8777 }); // Mumbai coords fallback
-
-  // Try to use the store owner's current location as the store coordinates
-  useEffect(() => {
-    if (typeof window !== "undefined" && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setStoreLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          });
-        },
-        (error) => {
-          console.warn("Could not get current location for store, using default fallback.", error);
-        }
-      );
-    }
-  }, []);
-
-  const calculateHaversineDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
-    const R = 6371; // Earth's radius in km
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-      Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-  };
-
-  const detectDistance = () => {
-    if (typeof window === "undefined" || !navigator.geolocation) {
-      alert("Geolocation is not supported by your browser.");
-      return;
-    }
-    setLocating(true);
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        const dist = calculateHaversineDistance(storeLocation.lat, storeLocation.lng, lat, lng);
-        const roundedDist = Math.round(dist * 10) / 10;
-        setDistance(roundedDist);
-        const charge = roundedDist <= 5 ? 0 : Math.round((roundedDist - 5) * 4);
-        setDeliveryCharge(charge);
-        setLocating(false);
-      },
-      (error) => {
-        console.error("Error detecting location:", error);
-        alert("Failed to detect location. Please use the slider to enter distance manually.");
-        setLocating(false);
-      }
-    );
-  };
-
-  const handleDistanceChange = (newVal: number) => {
-    setDistance(newVal);
-    const charge = newVal <= 5 ? 0 : Math.round((newVal - 5) * 4);
-    setDeliveryCharge(charge);
-  };
-
   // Validation for required fields
   const isFormValid = customerName.trim() !== "" && customerAddress.trim() !== "" && customerPhone.trim() !== "";
   const revealRef = useRef<HTMLDivElement>(null);
@@ -145,7 +78,7 @@ export default function Customizer() {
     setExtras((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
 
   const extraTotal = extras.reduce((s, id) => s + (EXTRAS.find((e) => e.id === id)?.price ?? 0), 0);
-  const total = pack.price + extraTotal + deliveryCharge;
+  const total = pack.price + extraTotal;
 
   const [orderSending, setOrderSending] = useState(false);
   // Send order details to backend API using nodemailer
@@ -171,8 +104,6 @@ export default function Customizer() {
       `Occasion: ${occasion.label}`,
       `Faces: ${facesText}`,
       `Add-Ons: ${addOnsText}`,
-      `Distance: ${distance} km`,
-      `Delivery Charge: ₹${deliveryCharge}`,
       `Total: ₹${total}`,
     ];
     try {
@@ -190,8 +121,6 @@ export default function Customizer() {
             occasion: occasion.label,
             faces: facesText,
             addOns: addOnsText,
-            distance: `${distance} km`,
-            deliveryCharge: `₹${deliveryCharge}`,
             total: `₹${total}`,
           })
         });
@@ -342,69 +271,6 @@ export default function Customizer() {
                 ))}
               </div>
             </div>
-
-            {/* Step 5 — Delivery Charges Calculator */}
-            <div className="bg-white rounded-3xl p-8" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
-              <h3 className="font-display text-xl mb-3" style={{ color: "#1A1A2E" }}>
-                <span className="mr-2 text-2xl">🚚</span> Step 5: Check Delivery Distance & Charges
-              </h3>
-              <p className="text-sm font-semibold mb-6" style={{ color: "#888" }}>
-                Free delivery within 5 km from our store. ₹4/km will be charged for any distance beyond 5 km.
-              </p>
-              
-              <div className="flex flex-col gap-6">
-                <div className="flex flex-col sm:flex-row gap-4 items-center justify-between p-4 rounded-2xl bg-yellow-50 border-2 border-yellow-200">
-                  <div className="text-left">
-                    <span className="text-xs font-bold block" style={{ color: "#FFB800" }}>STORE STATUS</span>
-                    <span className="font-bold text-sm" style={{ color: "#1A1A2E" }}>📍 Store Location: Active (Your Current Location)</span>
-                  </div>
-                  <button
-                    onClick={detectDistance}
-                    disabled={locating}
-                    className="font-display text-sm px-6 py-3 rounded-xl transition-all text-white bg-gradient-to-r from-yellow-400 to-amber-500 hover:scale-105"
-                    style={{ border: "none", cursor: locating ? "not-allowed" : "pointer" }}
-                  >
-                    {locating ? "🌐 Detecting..." : "📍 Detect My Location"}
-                  </button>
-                </div>
-
-                <div className="p-4 rounded-2xl border-2 border-gray-100 bg-gray-50">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="font-bold text-sm" style={{ color: "#1A1A2E" }}>Adjust Distance Manually</span>
-                    <span className="font-display text-lg" style={{ color: "#FF6B6B" }}>{distance} km</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="200"
-                    step="0.5"
-                    value={distance}
-                    onChange={(e) => handleDistanceChange(parseFloat(e.target.value))}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-yellow-400"
-                  />
-                  <div className="flex justify-between text-xs font-bold text-gray-400 mt-1">
-                    <span>0 km</span>
-                    <span>100 km</span>
-                    <span>200 km</span>
-                  </div>
-                </div>
-
-                <div className="flex justify-between items-center p-4 rounded-2xl bg-emerald-50 border-2 border-emerald-100">
-                  <div>
-                    <span className="text-xs font-bold block text-emerald-600">DELIVERY CHARGE ESTIMATE</span>
-                    <span className="font-bold text-sm text-emerald-800">
-                      {distance <= 5 
-                        ? "Within 5 km radius" 
-                        : `${(distance - 5).toFixed(1)} km extra distance`
-                      }
-                    </span>
-                  </div>
-                  <span className="font-display text-2xl text-emerald-700">
-                    {deliveryCharge === 0 ? "₹0 (Free)" : `₹${deliveryCharge}`}
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* RIGHT */}
@@ -450,12 +316,6 @@ export default function Customizer() {
                     </div>
                   );
                 })}
-                <div className="flex justify-between items-center">
-                  <span className="font-semibold" style={{ color: "rgba(255,255,255,0.75)" }}>🚚 Delivery ({distance} km)</span>
-                  <span className="font-display text-white text-lg">
-                    {deliveryCharge === 0 ? "Free" : `₹${deliveryCharge}`}
-                  </span>
-                </div>
                 <div className="border-t border-white border-opacity-20 my-2" />
                 <div className="flex justify-between items-center">
                   <span className="font-display text-white text-lg">Total</span>
@@ -587,14 +447,6 @@ export default function Customizer() {
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontWeight: "bold" }}>
                     <span>✨ Add-Ons:</span>
                     <span>{extras.length > 0 ? extras.map(id => EXTRAS.find(e => e.id === id)?.label).join(", ") : "None"}</span>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontWeight: "bold" }}>
-                    <span>🚚 Distance:</span>
-                    <span>{distance} km</span>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontWeight: "bold" }}>
-                    <span>💸 Delivery Charge:</span>
-                    <span>{deliveryCharge === 0 ? "Free" : `₹${deliveryCharge}`}</span>
                   </div>
                   <div style={{ borderTop: "1px solid #e5e7eb", margin: "12px 0 8px 0" }} />
                   <div style={{ display: "flex", justifyContent: "space-between", fontWeight: "bold", fontSize: "1.1rem", color: "#FF6B6B" }}>
