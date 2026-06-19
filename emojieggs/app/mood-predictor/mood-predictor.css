@@ -1,0 +1,578 @@
+/* ─────────────────────────────────────────────
+   MOOD PREDICTOR PAGE STYLES
+   ───────────────────────────────────────────── */
+
+.mood-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #0F0A1E;
+}
+
+.mood-bg-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  animation: bgGlowIn 1.2s ease-out forwards;
+}
+
+@keyframes bgGlowIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── Particles ─── */
+.particles-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.mood-particle {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 50%;
+  background: rgba(255, 184, 0, 0.35);
+  animation: floatUp linear infinite;
+  filter: blur(1px);
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  10%  { opacity: 0.8; }
+  90%  { opacity: 0.2; }
+  100% { transform: translateY(-100vh) scale(0.3); opacity: 0; }
+}
+
+/* ─── Navigation ─── */
+.mood-nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.mood-back-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: all 0.3s;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mood-back-link:hover {
+  color: #FFB800;
+  border-color: rgba(255, 184, 0, 0.3);
+  background: rgba(255, 184, 0, 0.08);
+}
+
+.mood-nav-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+/* ─── Main ─── */
+.mood-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  padding: 0 24px 60px;
+}
+
+/* ─── Intro Phase ─── */
+.mood-intro-container {
+  text-align: center;
+  animation: fadeSlideUp 0.8s ease-out;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.mood-mystical-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #E879F9;
+  background: rgba(232, 121, 249, 0.1);
+  border: 1px solid rgba(232, 121, 249, 0.2);
+  margin-bottom: 32px;
+}
+
+.mood-title {
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.mood-title-gradient {
+  background: linear-gradient(135deg, #FFB800 0%, #FF6B6B 50%, #E879F9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mood-subtitle {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 460px;
+  margin: 0 auto 48px;
+  font-weight: 600;
+}
+
+.mood-subtitle strong {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.mood-hint {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 40px;
+}
+
+/* ─── Cosmic Egg Button ─── */
+.cosmic-egg-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 40px;
+  outline: none;
+}
+
+.cosmic-egg-rings {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cosmic-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid;
+  animation: ringPulse 3s ease-in-out infinite;
+}
+
+.ring-1 {
+  width: 160px;
+  height: 160px;
+  border-color: rgba(255, 184, 0, 0.2);
+  animation-delay: 0s;
+}
+
+.ring-2 {
+  width: 210px;
+  height: 210px;
+  border-color: rgba(232, 121, 249, 0.15);
+  animation-delay: 0.5s;
+}
+
+.ring-3 {
+  width: 260px;
+  height: 260px;
+  border-color: rgba(255, 107, 107, 0.1);
+  animation-delay: 1s;
+}
+
+@keyframes ringPulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50%      { transform: scale(1.08); opacity: 1; }
+}
+
+.cosmic-egg-shape {
+  width: 100px;
+  height: 125px;
+  background: radial-gradient(ellipse at 35% 30%, #fff9e6 0%, #FFD84D 35%, #FFB800 65%, #CC8800 100%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  box-shadow:
+    inset -8px -12px 20px rgba(0, 0, 0, 0.15),
+    inset 6px 8px 15px rgba(255, 255, 255, 0.6),
+    0 0 60px rgba(255, 184, 0, 0.4),
+    0 0 120px rgba(255, 184, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: eggFloat 3s ease-in-out infinite;
+}
+
+.cosmic-egg-btn:hover .cosmic-egg-shape {
+  transform: scale(1.08);
+  box-shadow:
+    inset -8px -12px 20px rgba(0, 0, 0, 0.15),
+    inset 6px 8px 15px rgba(255, 255, 255, 0.6),
+    0 0 80px rgba(255, 184, 0, 0.6),
+    0 0 160px rgba(255, 184, 0, 0.25);
+}
+
+@keyframes eggFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+.cosmic-egg-btn:hover .cosmic-egg-shape {
+  animation: none;
+}
+
+.cosmic-egg-emoji {
+  font-size: 3rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.cosmic-egg-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.05em;
+  transition: color 0.3s;
+}
+
+.cosmic-egg-btn:hover .cosmic-egg-label {
+  color: #FFB800;
+}
+
+/* ─── Focusing Phase ─── */
+.mood-focusing-container {
+  text-align: center;
+  animation: fadeSlideUp 0.6s ease-out;
+}
+
+.focusing-text {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 60px;
+  min-width: 320px;
+}
+
+.focusing-dots {
+  display: inline-block;
+  min-width: 30px;
+  text-align: left;
+}
+
+.cosmic-egg-focusing {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 40px;
+  cursor: pointer;
+}
+
+.focus-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid;
+  animation: focusRingPulse 1.5s ease-in-out infinite;
+}
+
+.focus-ring-1 {
+  width: 150px;
+  height: 150px;
+  border-color: rgba(255, 184, 0, 0.4);
+  animation-delay: 0s;
+}
+
+.focus-ring-2 {
+  width: 180px;
+  height: 180px;
+  border-color: rgba(232, 121, 249, 0.3);
+  animation-delay: 0.3s;
+}
+
+.focus-ring-3 {
+  width: 210px;
+  height: 210px;
+  border-color: rgba(255, 107, 107, 0.2);
+  animation-delay: 0.6s;
+}
+
+@keyframes focusRingPulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50%      { transform: scale(1.15); opacity: 1; }
+}
+
+.focusing-egg {
+  animation: focusEggShake 0.6s ease-in-out infinite;
+}
+
+@keyframes focusEggShake {
+  0%, 100% { transform: rotate(0deg); }
+  25%      { transform: rotate(-3deg); }
+  75%      { transform: rotate(3deg); }
+}
+
+.focusing-sub {
+  animation: fadeSlideUp 0.4s ease-out 0.5s both;
+}
+
+/* ─── Reveal Phase ─── */
+.mood-reveal-container {
+  text-align: center;
+  animation: fadeSlideUp 0.5s ease-out;
+}
+
+.cracked-egg-wrapper {
+  position: relative;
+  width: 120px;
+  height: 140px;
+  margin: 0 auto 40px;
+}
+
+.cracked-egg-left,
+.cracked-egg-right {
+  position: absolute;
+  font-size: 5rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.cracked-egg-wrapper.cracked .cracked-egg-left {
+  transform: translate(-120%, -50%) rotate(-25deg);
+  opacity: 0;
+}
+
+.cracked-egg-wrapper.cracked .cracked-egg-right {
+  transform: translate(20%, -50%) rotate(25deg);
+  opacity: 0;
+}
+
+.revealed-mood-emoji {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 5rem;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.3));
+}
+
+.revealed-mood-emoji.visible {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ─── Result Card ─── */
+.mood-result-card {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 40px 32px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out 0.3s;
+}
+
+.mood-result-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mood-result-badge {
+  display: inline-block;
+  padding: 8px 24px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.mood-result-message {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.mood-result-tip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: 16px;
+  background: rgba(255, 184, 0, 0.08);
+  border: 1px solid rgba(255, 184, 0, 0.15);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+.mood-tip-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.mood-result-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mood-btn-primary {
+  padding: 14px 32px;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, #FFB800 0%, #FF6B6B 100%);
+  color: white;
+  font-weight: 700;
+  transition: all 0.3s;
+  letter-spacing: 0.02em;
+}
+
+.mood-btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(255, 184, 0, 0.4);
+}
+
+.mood-btn-secondary {
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  font-weight: 700;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-block;
+  letter-spacing: 0.02em;
+}
+
+.mood-btn-secondary:hover {
+  border-color: #FFB800;
+  color: #FFB800;
+  background: rgba(255, 184, 0, 0.08);
+  transform: scale(1.05);
+}
+
+/* ─── History ─── */
+.mood-history {
+  margin-top: 60px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease-out 0.6s;
+}
+
+.mood-history.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mood-history-title {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.mood-history-list {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mood-history-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  animation: fadeSlideUp 0.4s ease-out both;
+  min-width: 80px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 640px) {
+  .mood-nav {
+    padding: 16px 16px;
+  }
+
+  .mood-main {
+    padding: 0 16px 40px;
+  }
+
+  .mood-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .mood-result-card {
+    padding: 28px 20px;
+  }
+
+  .mood-result-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cosmic-egg-shape {
+    width: 80px;
+    height: 100px;
+  }
+
+  .cosmic-egg-emoji {
+    font-size: 2.5rem;
+  }
+
+  .ring-1 { width: 130px; height: 130px; }
+  .ring-2 { width: 170px; height: 170px; }
+  .ring-3 { width: 210px; height: 210px; }
+}

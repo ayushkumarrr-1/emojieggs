@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -45,6 +46,16 @@ export default function Navbar() {
               {l}
             </a>
           ))}
+          <Link
+            href="/mood-predictor"
+            className="font-semibold text-sm px-4 py-1.5 rounded-full transition-all hover:scale-105"
+            style={{
+              background: "linear-gradient(135deg, #E879F9, #A855F7)",
+              color: "white",
+            }}
+          >
+            🔮 Mood Game
+          </Link>
         </div>
 
         <a
