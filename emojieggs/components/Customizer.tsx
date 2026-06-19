@@ -15,10 +15,10 @@ const OCCASIONS = [
 ];
 
 const PACKS = [
-  { label: "Half Dozen",   qty: 6,  price: 60  },
-  { label: "Full Dozen",   qty: 12, price: 149 },
-  { label: "Double Dozen", qty: 24, price: 199 },
-  { label: "Party Pack",   qty: 48, price: 330 },
+  { label: "Half Dozen",   qty: 6,  price: 51  },
+  { label: "Full Dozen",   qty: 12, price: 102 },
+  { label: "Double Dozen", qty: 24, price: 190 },
+  { label: "Party Pack",   qty: 48, price: 380 },
 ];
 
 const EXTRAS = [
