@@ -46,6 +46,9 @@ export default function Navbar() {
               {l}
             </a>
           ))}
+        </div>
+
+        <div className="flex items-center gap-3">
           <Link
             href="/mood-predictor"
             className="font-semibold text-sm px-4 py-1.5 rounded-full transition-all hover:scale-105"
@@ -56,16 +59,14 @@ export default function Navbar() {
           >
             🔮 Mood Game
           </Link>
+          <a
+            href="#order"
+            className="font-display text-sm px-5 py-2 rounded-full text-white transition-transform hover:scale-105"
+            style={{ background: "linear-gradient(135deg, #FFB800, #FF6B6B)" }}
+          >
+            Order Now 🥚
+          </a>
         </div>
-
-        <a
-          href="#order"
-          className="font-display text-sm px-5 py-2 rounded-full text-white transition-transform hover:scale-105"
-          style={{ background: "linear-gradient(135deg, #FFB800, #FF6B6B)" }}
-        >
-          Order Now 🥚
-        </a>
-      </div>
     </nav>
   );
 }
