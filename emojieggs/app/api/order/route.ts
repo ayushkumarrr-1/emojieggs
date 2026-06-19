@@ -147,9 +147,11 @@ export async function POST(request: Request) {
     let testAccount;
 
     if (emailUser && emailPass) {
-      // Use provided Gmail credentials
+      // Use explicit SMTP configuration for Gmail to ensure reliability in serverless environments
       transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
         auth: { user: emailUser, pass: emailPass },
       });
     } else {
