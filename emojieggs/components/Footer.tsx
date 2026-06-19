@@ -37,8 +37,12 @@ export default function Footer() {
 
           <div>
             <h4 className="font-display text-lg mb-4" style={{ color: "#FFB800" }}>Contact</h4>
-            <p className="text-sm font-semibold mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>📧 hello@emojieggs.in</p>
-            <p className="text-sm font-semibold mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>📞 +91 98765 43210</p>
+            <p className="text-sm font-semibold mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>
+              📧 <a href="mailto:dinathayush@gmail.com" className="hover:text-yellow-400 transition-colors">For any queries: dinathayush@gmail.com</a>
+            </p>
+            <p className="text-sm font-semibold mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>
+              📞 <a href="tel:+919699556858" className="hover:text-yellow-400 transition-colors">Phone number: +91 96995 56858</a>
+            </p>
             <p className="text-sm font-semibold mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>⏰ 6 AM – 10 PM Daily</p>
             <p className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.6)" }}>🚚 Delivery across India</p>
           </div>

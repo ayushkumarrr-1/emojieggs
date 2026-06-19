@@ -18,7 +18,7 @@ const PACKS = [
   { label: "Half Dozen",   qty: 6,  price: 60  },
   { label: "Full Dozen",   qty: 12, price: 149 },
   { label: "Double Dozen", qty: 24, price: 199 },
-  { label: "Party Pack",   qty: 48, price: 310 },
+  { label: "Party Pack",   qty: 48, price: 330 },
 ];
 
 const EXTRAS = [
