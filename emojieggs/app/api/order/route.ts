@@ -13,6 +13,8 @@ interface OrderPayload {
   faces?: string;
   addOns?: string;
   total?: string;
+  distance?: string;
+  deliveryCharge?: string;
 }
 
 function buildHtmlEmail(data: OrderPayload): string {
@@ -25,6 +27,8 @@ function buildHtmlEmail(data: OrderPayload): string {
     faces = '',
     addOns = 'None',
     total = '₹0',
+    distance = '0 km',
+    deliveryCharge = '₹0',
   } = data;
 
   return `
@@ -99,6 +103,14 @@ function buildHtmlEmail(data: OrderPayload): string {
                       <tr>
                         <td style="padding:6px 0;font-size:14px;color:#888;font-weight:600;">Add-Ons</td>
                         <td style="padding:6px 0;font-size:14px;color:#1A1A2E;font-weight:700;">${addOns}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:6px 0;font-size:14px;color:#888;font-weight:600;">Distance</td>
+                        <td style="padding:6px 0;font-size:14px;color:#1A1A2E;font-weight:700;">${distance}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:6px 0;font-size:14px;color:#888;font-weight:600;">Delivery Fee</td>
+                        <td style="padding:6px 0;font-size:14px;color:#1A1A2E;font-weight:700;">${deliveryCharge}</td>
                       </tr>
                     </table>
                   </td>
