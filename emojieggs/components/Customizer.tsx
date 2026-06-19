@@ -376,7 +376,7 @@ export default function Customizer() {
                   <input
                     type="range"
                     min="0"
-                    max="50"
+                    max="200"
                     step="0.5"
                     value={distance}
                     onChange={(e) => handleDistanceChange(parseFloat(e.target.value))}
@@ -384,8 +384,8 @@ export default function Customizer() {
                   />
                   <div className="flex justify-between text-xs font-bold text-gray-400 mt-1">
                     <span>0 km</span>
-                    <span>25 km</span>
-                    <span>50 km</span>
+                    <span>100 km</span>
+                    <span>200 km</span>
                   </div>
                 </div>
 
