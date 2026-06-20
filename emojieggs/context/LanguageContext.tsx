@@ -34,11 +34,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const t = language === "hi" ? hi : en;
 
-  // Render nothing until mounted to avoid hydration mismatch
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
   return (
     <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
       {children}
