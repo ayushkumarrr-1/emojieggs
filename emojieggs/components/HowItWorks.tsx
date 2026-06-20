@@ -1,15 +1,10 @@
 "use client";
 import { useEffect, useRef } from "react";
-
-const steps = [
-  { icon: "🎯", title: "Pick an Occasion", desc: "Birthday, Monday blues, anniversary, exam day — we have an occasion for every feeling." },
-  { icon: "😄", title: "Choose Your Emoji", desc: "Browse 50+ emojis curated for that occasion. Mix and match across your dozen." },
-  { icon: "🔢", title: "Set Your Quantity", desc: "Half dozen, full dozen, or a big party pack. We scale with you." },
-  { icon: "🚀", title: "We Deliver Fresh", desc: "Printed and delivered same day. Every egg, a tiny mood booster." },
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HowItWorks() {
   const refs = useRef<(HTMLDivElement | null)[]>([]);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -24,14 +19,14 @@ export default function HowItWorks() {
     <section className="py-24 bg-white" id="how-it-works">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
-          <span className="badge" style={{ background: "#FFF0C8", color: "#CC8800" }}>Simple Process</span>
+          <span className="badge" style={{ background: "#FFF0C8", color: "#CC8800" }}>{t.howItWorks.badge}</span>
           <h2 className="font-display mt-3" style={{ fontSize: "clamp(2rem,4vw,3rem)", color: "#1A1A2E" }}>
-            4 Steps to a Happier Breakfast
+            {t.howItWorks.title}
           </h2>
         </div>
 
         <div className="grid md:grid-cols-4 gap-6">
-          {steps.map((s, i) => (
+          {t.howItWorks.steps.map((s, i) => (
             <div
               key={i}
               ref={(el) => { refs.current[i] = el; }}
@@ -59,3 +54,4 @@ export default function HowItWorks() {
     </section>
   );
 }
+

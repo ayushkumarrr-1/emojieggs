@@ -1,41 +1,33 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { FACES, OCCASION_FACES, FaceIcon, EggWithFace } from "./FaceEmoji";
+import { useLanguage } from "@/context/LanguageContext";
 
-const OCCASIONS = [
-  { id: "birthday",  label: "Birthday 🎂" },
-  { id: "love",      label: "Love & Romance 💕" },
-  { id: "monday",    label: "Monday Blues 😩" },
-  { id: "exam",      label: "Exam Day 📚" },
-  { id: "party",     label: "Party Time 🎊" },
-  { id: "morning",   label: "Good Morning ☀️" },
-  { id: "health",    label: "Fitness & Health 💪" },
-  { id: "funny",     label: "Funny Vibes 😂" },
-  { id: "employees", label: "Employees 💼" },
+const OCCASIONS_IDS = ["birthday", "love", "monday", "exam", "party", "morning", "health", "funny", "employees"];
+
+const PACKS_IDS = [
+  { id: "Half Dozen", qty: 6, price: 55 },
+  { id: "Full Dozen", qty: 12, price: 102 },
+  { id: "Double Dozen", qty: 24, price: 190 },
+  { id: "Party Pack", qty: 48, price: 380 },
 ];
 
-const PACKS = [
-  { label: "Half Dozen",   qty: 6,  price: 55  },
-  { label: "Full Dozen",   qty: 12, price: 102 },
-  { label: "Double Dozen", qty: 24, price: 190 },
-  { label: "Party Pack",   qty: 48, price: 380 },
-];
-
-const EXTRAS = [
-  { id: "box",     label: "🎁 Gift Box",         price: 29 },
-  { id: "card",    label: "💌 Message Card",      price: 15 },
-  { id: "express", label: "⚡ Express Delivery",  price: 39 },
+const EXTRAS_IDS = [
+  { id: "box", price: 29 },
+  { id: "card", price: 15 },
+  { id: "express", price: 39 },
 ];
 
 export default function Customizer() {
-  // Function to handle 'Add to Cart' action: marks item as added and opens the order form modal
+  const { t } = useLanguage();
+  
   const handleOrder = () => {
     setAdded(true);
     setShowFormModal(true);
   };
-  const [occasion, setOccasion]         = useState(OCCASIONS[0]);
+  const [occasion, setOccasion]         = useState(OCCASIONS_IDS[0]);
   const [selectedFaces, setSelectedFaces] = useState<string[]>(["happy"]);
-  const [pack, setPack]                 = useState(PACKS[1]);
+  const [pack, setPack]                 = useState(PACKS_IDS[1]);
   const [extras, setExtras]             = useState<string[]>([]);
   const [preview, setPreview]           = useState<string[]>([]);
   const [added, setAdded]               = useState(false);
@@ -46,7 +38,6 @@ export default function Customizer() {
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [orderSent, setOrderSent] = useState(false);
-  // Validation for required fields
   const isFormValid = customerName.trim() !== "" && customerAddress.trim() !== "" && customerPhone.trim() !== "";
   const revealRef = useRef<HTMLDivElement>(null);
 
@@ -77,13 +68,12 @@ export default function Customizer() {
   const toggleExtra = (id: string) =>
     setExtras((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
 
-  const extraTotal = extras.reduce((s, id) => s + (EXTRAS.find((e) => e.id === id)?.price ?? 0), 0);
+  const extraTotal = extras.reduce((s, id) => s + (EXTRAS_IDS.find((e) => e.id === id)?.price ?? 0), 0);
   const total = pack.price + extraTotal;
 
   const [orderSending, setOrderSending] = useState(false);
-  // Send order details to backend API using nodemailer
+  
   const handleSendOrder = async () => {
-    // Play the cracking sound loudly and clearly
     try {
       const audio = new Audio("/egg-crack.mp3");
       audio.volume = 1.0;
@@ -95,13 +85,13 @@ export default function Customizer() {
     setOrderSending(true);
     const subject = `🥚 New EmojiEggs Order from ${customerName}`;
     const facesText = selectedFaces.map(id => FACES[id]?.label || id).join(', ');
-    const addOnsText = extras.length > 0 ? extras.map(id => EXTRAS.find(e => e.id === id)?.label).join(', ') : 'None';
+    const addOnsText = extras.length > 0 ? extras.map(id => t.customizer.extras[id as keyof typeof t.customizer.extras]).join(', ') : 'None';
     const bodyLines = [
       `Name: ${customerName}`,
       `Address: ${customerAddress}`,
       `Phone: ${customerPhone}`,
-      `Pack: ${pack.label} (${pack.qty} Eggs)`,
-      `Occasion: ${occasion.label}`,
+      `Pack: ${t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} (${pack.qty} Eggs)`,
+      `Occasion: ${t.customizer.occasions[occasion as keyof typeof t.customizer.occasions]}`,
       `Faces: ${facesText}`,
       `Add-Ons: ${addOnsText}`,
       `Total: ₹${total}`,
@@ -117,8 +107,8 @@ export default function Customizer() {
             customerName,
             customerPhone,
             customerAddress,
-            pack: `${pack.label} (${pack.qty} Eggs)`,
-            occasion: occasion.label,
+            pack: `${t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} (${pack.qty} Eggs)`,
+            occasion: t.customizer.occasions[occasion as keyof typeof t.customizer.occasions],
             faces: facesText,
             addOns: addOnsText,
             total: `₹${total}`,
@@ -133,18 +123,18 @@ export default function Customizer() {
       }
   };
 
-  const occasionFaces = OCCASION_FACES[occasion.id] ?? [];
+  const occasionFaces = OCCASION_FACES[occasion] ?? [];
 
   return (
     <section className="py-24" id="order" style={{ background: "#F9F6EF" }}>
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-14">
-          <span className="badge" style={{ background: "#FFB800", color: "#1A1A2E" }}>🎨 Customise</span>
+          <span className="badge" style={{ background: "#FFB800", color: "#1A1A2E" }}>{t.customizer.badge}</span>
           <h2 className="font-display mt-3" style={{ fontSize: "clamp(2rem,4vw,3rem)", color: "#1A1A2E" }}>
-            Build Your Perfect Egg Box
+            {t.customizer.title}
           </h2>
           <p className="mt-2 font-semibold" style={{ color: "#666" }}>
-            Every selection updates the preview and price live
+            {t.customizer.subtitle}
           </p>
         </div>
 
@@ -155,16 +145,16 @@ export default function Customizer() {
             {/* Step 1 */}
             <div className="bg-white rounded-3xl p-8" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
               <h3 className="font-display text-xl mb-5" style={{ color: "#1A1A2E" }}>
-                <span className="mr-2 text-2xl">🎯</span> Step 1: Pick an Occasion
+                <span className="mr-2 text-2xl">🎯</span> {t.customizer.step1}
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {OCCASIONS.map((occ) => (
+                {OCCASIONS_IDS.map((occId) => (
                   <button
-                    key={occ.id}
-                    onClick={() => { setOccasion(occ); setSelectedFaces([OCCASION_FACES[occ.id][0]]); }}
-                    className={`occasion-card text-sm font-bold ${occasion.id === occ.id ? "active" : ""}`}
+                    key={occId}
+                    onClick={() => { setOccasion(occId); setSelectedFaces([OCCASION_FACES[occId][0]]); }}
+                    className={`occasion-card text-sm font-bold ${occasion === occId ? "active" : ""}`}
                   >
-                    {occ.label}
+                    {t.customizer.occasions[occId as keyof typeof t.customizer.occasions]}
                   </button>
                 ))}
               </div>
@@ -173,10 +163,10 @@ export default function Customizer() {
             {/* Step 2 — Face picker */}
             <div className="bg-white rounded-3xl p-8" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
               <h3 className="font-display text-xl mb-2" style={{ color: "#1A1A2E" }}>
-                <span className="mr-2 text-2xl">😄</span> Step 2: Choose Your Face Expressions
+                <span className="mr-2 text-2xl">😄</span> {t.customizer.step2}
               </h3>
               <p className="text-sm font-semibold mb-6" style={{ color: "#888" }}>
-                Black &amp; white faces printed directly on each egg shell
+                {t.customizer.step2Desc}
               </p>
               <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
                 {occasionFaces.map((faceId) => {
@@ -213,7 +203,7 @@ export default function Customizer() {
 
               {selectedFaces.length > 0 && (
                 <div className="mt-5 flex flex-wrap items-center gap-3">
-                  <span className="text-xs font-bold" style={{ color: "#888" }}>Selected:</span>
+                  <span className="text-xs font-bold" style={{ color: "#888" }}>{t.customizer.selected}</span>
                   {selectedFaces.map((id) => (
                     <div key={id} style={{ display: "flex", alignItems: "center", gap: 4 }}>
                       <FaceIcon faceId={id} size={32} />
@@ -227,17 +217,17 @@ export default function Customizer() {
             {/* Step 3 */}
             <div className="bg-white rounded-3xl p-8" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
               <h3 className="font-display text-xl mb-5" style={{ color: "#1A1A2E" }}>
-                <span className="mr-2 text-2xl">🔢</span> Step 3: How Many Eggs?
+                <span className="mr-2 text-2xl">🔢</span> {t.customizer.step3}
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {PACKS.map((p) => (
+                {PACKS_IDS.map((p) => (
                   <button
                     key={p.qty}
                     onClick={() => setPack(p)}
                     className={`rounded-2xl p-5 border-2 text-center transition-all cursor-pointer ${pack.qty === p.qty ? "border-yellow-400 bg-yellow-50" : "border-gray-200 bg-white hover:border-yellow-300"}`}
                   >
                     <div className="font-display text-3xl" style={{ color: "#FFB800" }}>{p.qty}</div>
-                    <div className="font-bold text-sm mt-1" style={{ color: "#1A1A2E" }}>{p.label}</div>
+                    <div className="font-bold text-sm mt-1" style={{ color: "#1A1A2E" }}>{t.customizer.packs[p.id as keyof typeof t.customizer.packs]}</div>
                     <div className="font-display text-lg mt-2" style={{ color: "#FF6B6B" }}>₹{p.price}</div>
                   </button>
                 ))}
@@ -247,10 +237,10 @@ export default function Customizer() {
             {/* Step 4 */}
             <div className="bg-white rounded-3xl p-8" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
               <h3 className="font-display text-xl mb-5" style={{ color: "#1A1A2E" }}>
-                <span className="mr-2 text-2xl">✨</span> Step 4: Add-Ons (Optional)
+                <span className="mr-2 text-2xl">✨</span> {t.customizer.step4}
               </h3>
               <div className="flex flex-col gap-3">
-                {EXTRAS.map((ex) => (
+                {EXTRAS_IDS.map((ex) => (
                   <label
                     key={ex.id}
                     className="flex items-center gap-4 p-4 rounded-2xl cursor-pointer border-2 transition-all"
@@ -265,7 +255,7 @@ export default function Customizer() {
                       onChange={() => toggleExtra(ex.id)}
                       className="w-5 h-5 accent-yellow-400 cursor-pointer"
                     />
-                    <span className="font-bold flex-1" style={{ color: "#1A1A2E" }}>{ex.label}</span>
+                    <span className="font-bold flex-1" style={{ color: "#1A1A2E" }}>{t.customizer.extras[ex.id as keyof typeof t.customizer.extras]}</span>
                     <span className="font-display text-lg" style={{ color: "#FF6B6B" }}>+₹{ex.price}</span>
                   </label>
                 ))}
@@ -277,7 +267,7 @@ export default function Customizer() {
           <div className="flex flex-col gap-6">
             {/* Preview */}
             <div className="bg-white rounded-3xl p-6" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
-              <h3 className="font-display text-lg mb-4" style={{ color: "#1A1A2E" }}>🥚 Your Box Preview</h3>
+              <h3 className="font-display text-lg mb-4" style={{ color: "#1A1A2E" }}>{t.customizer.previewTitle}</h3>
               <div style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(4, 1fr)",
@@ -293,45 +283,45 @@ export default function Customizer() {
                 ))}
               </div>
               <p className="text-xs font-semibold mt-3 text-center" style={{ color: "#aaa" }}>
-                {pack.qty} eggs · {selectedFaces.length} face{selectedFaces.length > 1 ? "s" : ""} rotating
+                {t.customizer.previewDesc(pack.qty, selectedFaces.length)}
               </p>
             </div>
 
             {/* Price Card */}
             <div className="price-card">
-              <h3 className="font-display text-xl mb-6 text-white">💰 Your Order Total</h3>
+              <h3 className="font-display text-xl mb-6 text-white">{t.customizer.priceTitle}</h3>
               <div className="flex flex-col gap-3 mb-6">
                 <div className="flex justify-between items-center">
                   <span className="font-semibold" style={{ color: "rgba(255,255,255,0.75)" }}>
-                    {pack.label} ({pack.qty} eggs)
+                    {t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} ({pack.qty} eggs)
                   </span>
                   <span className="font-display text-white text-lg">₹{pack.price}</span>
                 </div>
                 {extras.map((id) => {
-                  const ex = EXTRAS.find((e) => e.id === id)!;
+                  const ex = EXTRAS_IDS.find((e) => e.id === id)!;
                   return (
                     <div key={id} className="flex justify-between items-center">
-                      <span className="font-semibold" style={{ color: "rgba(255,255,255,0.75)" }}>{ex.label}</span>
+                      <span className="font-semibold" style={{ color: "rgba(255,255,255,0.75)" }}>{t.customizer.extras[ex.id as keyof typeof t.customizer.extras]}</span>
                       <span className="font-display text-white text-lg">₹{ex.price}</span>
                     </div>
                   );
                 })}
                 <div className="border-t border-white border-opacity-20 my-2" />
                 <div className="flex justify-between items-center">
-                  <span className="font-display text-white text-lg">Total</span>
+                  <span className="font-display text-white text-lg">{t.customizer.totalLabel}</span>
                   <span className="font-display text-3xl" style={{ color: "#FFB800" }}>₹{total}</span>
                 </div>
               </div>
 
               <div className="mb-5 p-3 rounded-2xl" style={{ background: "rgba(255,255,255,0.08)" }}>
-                <p className="text-xs font-bold mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>YOUR FACES</p>
+                <p className="text-xs font-bold mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>{t.customizer.yourFaces}</p>
                 <div className="flex flex-wrap gap-2">
                   {selectedFaces.map((id) => (
                     <FaceIcon key={id} faceId={id} size={36} style={{ filter: "invert(1) brightness(2)" }} />
                   ))}
                 </div>
                 <p className="text-xs font-semibold mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  on {pack.qty} eggs · {occasion.label}
+                  {t.customizer.onEggs(pack.qty, t.customizer.occasions[occasion as keyof typeof t.customizer.occasions])}
                 </p>
               </div>
 
@@ -346,10 +336,10 @@ export default function Customizer() {
                   cursor: "pointer",
                 }}
               >
-                {added ? "✅ Added to Cart!" : "Add to Cart 🛒"}
+                {added ? t.customizer.addedBtn : t.customizer.addBtn}
               </button>
               <p className="text-xs text-center mt-3 font-semibold" style={{ color: "rgba(255,255,255,0.45)" }}>
-                🚚 Free delivery on orders above ₹299
+                {t.customizer.freeDelivery}
               </p>
             </div>
 
@@ -357,8 +347,8 @@ export default function Customizer() {
               <div className="mb-2" style={{ display: "flex", justifyContent: "center" }}>
                 <FaceIcon faceId="happy" size={48} />
               </div>
-              <p className="font-display text-sm" style={{ color: "#1A1A2E" }}>"We value your happiness"</p>
-              <p className="text-xs font-semibold mt-1" style={{ color: "rgba(26,26,46,0.6)" }}>Every egg printed with love</p>
+              <p className="font-display text-sm" style={{ color: "#1A1A2E" }}>{t.customizer.weValue}</p>
+              <p className="text-xs font-semibold mt-1" style={{ color: "rgba(26,26,46,0.6)" }}>{t.customizer.printedWithLove}</p>
             </div>
           </div>
         </div>
@@ -413,9 +403,9 @@ export default function Customizer() {
             {orderConfirmed ? (
               <>
                 <div style={{ fontSize: "3rem", marginBottom: "16px" }}>📬</div>
-                <h3 className="font-display text-2xl mb-2" style={{ color: "#1A1A2E" }}>Order Summary</h3>
+                <h3 className="font-display text-2xl mb-2" style={{ color: "#1A1A2E" }}>{t.customizer.modal.summaryTitle}</h3>
                 <p className="text-sm font-semibold mb-6" style={{ color: "#666" }}>
-                  Thank you, {customerName}! Here are your order details.
+                  {t.customizer.modal.thankYou(customerName)}
                 </p>
                 <div style={{
                   background: "#F9F6EF",
@@ -427,15 +417,15 @@ export default function Customizer() {
                   border: "1px dashed #FFD84D",
                 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontWeight: "bold" }}>
-                    <span>📦 Pack:</span>
-                    <span>{pack.label} ({pack.qty} Eggs)</span>
+                    <span>{t.customizer.modal.pack}</span>
+                    <span>{t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} ({pack.qty} Eggs)</span>
                   </div>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontWeight: "bold" }}>
-                    <span>🎯 Occasion:</span>
-                    <span>{occasion.label}</span>
+                    <span>{t.customizer.modal.occ}</span>
+                    <span>{t.customizer.occasions[occasion as keyof typeof t.customizer.occasions]}</span>
                   </div>
                   <div style={{ marginBottom: "8px", fontWeight: "bold" }}>
-                    <span>😄 Faces:</span>
+                    <span>{t.customizer.modal.faces}</span>
                     <div style={{ display: "flex", gap: "4px", flexWrap: "wrap", marginTop: "4px" }}>
                       {selectedFaces.map(id => (
                         <span key={id} style={{ background: "white", padding: "2px 8px", borderRadius: "8px", fontSize: "0.75rem", border: "1px solid #e5e7eb" }}>
@@ -445,26 +435,26 @@ export default function Customizer() {
                     </div>
                   </div>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontWeight: "bold" }}>
-                    <span>✨ Add-Ons:</span>
-                    <span>{extras.length > 0 ? extras.map(id => EXTRAS.find(e => e.id === id)?.label).join(", ") : "None"}</span>
+                    <span>{t.customizer.modal.addons}</span>
+                    <span>{extras.length > 0 ? extras.map(id => t.customizer.extras[id as keyof typeof t.customizer.extras]).join(", ") : "None"}</span>
                   </div>
                   <div style={{ borderTop: "1px solid #e5e7eb", margin: "12px 0 8px 0" }} />
                   <div style={{ display: "flex", justifyContent: "space-between", fontWeight: "bold", fontSize: "1.1rem", color: "#FF6B6B" }}>
-                    <span>Total:</span>
+                    <span>{t.customizer.modal.total}</span>
                     <span>₹{total}</span>
                   </div>
                 </div>
-                <button onClick={handleSendOrder} disabled={orderSending} className="w-full font-display text-lg py-4 rounded-2xl mb-2" style={{ background: orderSending ? '#aaa' : "linear-gradient(135deg, #FF6B6B, #FFB800)", color: "white", boxShadow: "0 6px 20px rgba(255,184,0,0.35)" }}>{orderSending ? 'Sending...' : 'Send Order'}</button>
-                <button onClick={() => setShowFormModal(false)} className="w-full font-display text-lg py-4 rounded-2xl" style={{ background: "linear-gradient(135deg, #FFB800, #FF6B6B)", color: "white", boxShadow: "0 6px 20px rgba(255,184,0,0.35)" }}>Close</button>
+                <button onClick={handleSendOrder} disabled={orderSending} className="w-full font-display text-lg py-4 rounded-2xl mb-2" style={{ background: orderSending ? '#aaa' : "linear-gradient(135deg, #FF6B6B, #FFB800)", color: "white", boxShadow: "0 6px 20px rgba(255,184,0,0.35)" }}>{orderSending ? t.customizer.modal.sendingBtn : t.customizer.modal.sendBtn}</button>
+                <button onClick={() => setShowFormModal(false)} className="w-full font-display text-lg py-4 rounded-2xl" style={{ background: "linear-gradient(135deg, #FFB800, #FF6B6B)", color: "white", boxShadow: "0 6px 20px rgba(255,184,0,0.35)" }}>{t.customizer.modal.closeBtn}</button>
               </>
             ) : (
               <>
                 <div style={{ fontSize: "3rem", marginBottom: "16px" }}>📬</div>
-                <h3 className="font-display text-2xl mb-2" style={{ color: "#1A1A2E" }}>Enter Your Details</h3>
+                <h3 className="font-display text-2xl mb-2" style={{ color: "#1A1A2E" }}>{t.customizer.modal.enterDetails}</h3>
                 <div className="flex flex-col gap-4" style={{ textAlign: "left" }}>
-                  <input type="text" placeholder="Name" value={customerName} onChange={e => setCustomerName(e.target.value)} className="border p-2 rounded" />
-                  <input type="text" placeholder="Address" value={customerAddress} onChange={e => setCustomerAddress(e.target.value)} className="border p-2 rounded" />
-                  <input type="tel" placeholder="Phone Number" value={customerPhone} onChange={e => setCustomerPhone(e.target.value)} className="border p-2 rounded" />
+                  <input type="text" placeholder={t.customizer.modal.name} value={customerName} onChange={e => setCustomerName(e.target.value)} className="border p-2 rounded" />
+                  <input type="text" placeholder={t.customizer.modal.address} value={customerAddress} onChange={e => setCustomerAddress(e.target.value)} className="border p-2 rounded" />
+                  <input type="tel" placeholder={t.customizer.modal.phone} value={customerPhone} onChange={e => setCustomerPhone(e.target.value)} className="border p-2 rounded" />
                 </div>
                 <button
                   onClick={() => {
@@ -481,7 +471,7 @@ export default function Customizer() {
                     cursor: isFormValid ? "pointer" : "not-allowed",
                   }}
                 >
-                  Confirm Order
+                  {t.customizer.modal.confirmBtn}
                 </button>
               </>
             )}
@@ -508,9 +498,9 @@ export default function Customizer() {
             boxShadow: "0 20px 50px rgba(0, 0, 0, 0.15)",
             textAlign: "center",
           }}>
-            <h3 className="font-display text-2xl mb-2" style={{ color: "#1A1A2E" }}>Order Received</h3>
-            <p className="text-sm mb-4" style={{ color: "#666" }}>Your order has been placed successfully. We'll contact you soon.</p>
-            <button onClick={() => { setOrderSent(false); setShowFormModal(false); }} className="w-full font-display text-lg py-4 rounded-2xl" style={{ background: "linear-gradient(135deg, #FFB800, #FF6B6B)", color: "white", boxShadow: "0 6px 20px rgba(255,184,0,0.35)" }}>Close</button>
+            <h3 className="font-display text-2xl mb-2" style={{ color: "#1A1A2E" }}>{t.customizer.modal.successTitle}</h3>
+            <p className="text-sm mb-4" style={{ color: "#666" }}>{t.customizer.modal.successDesc}</p>
+            <button onClick={() => { setOrderSent(false); setShowFormModal(false); }} className="w-full font-display text-lg py-4 rounded-2xl" style={{ background: "linear-gradient(135deg, #FFB800, #FF6B6B)", color: "white", boxShadow: "0 6px 20px rgba(255,184,0,0.35)" }}>{t.customizer.modal.closeBtn}</button>
           </div>
         </div>
       )}

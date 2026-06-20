@@ -1,9 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 40);
@@ -36,19 +38,28 @@ export default function Navbar() {
 
         {/* Links */}
         <div className="hidden md:flex items-center gap-6">
-          {["Home", "How It Works", "Occasions", "Order"].map((l) => (
-            <a
-              key={l}
-              href={`#${l.toLowerCase().replace(/ /g, "-")}`}
-              className="font-semibold text-sm transition-colors hover:text-yellow-500"
-              style={{ color: "#1A1A2E" }}
-            >
-              {l}
-            </a>
-          ))}
+          <a href="#home" className="font-semibold text-sm transition-colors hover:text-yellow-500" style={{ color: "#1A1A2E" }}>{t.nav.home}</a>
+          <a href="#how-it-works" className="font-semibold text-sm transition-colors hover:text-yellow-500" style={{ color: "#1A1A2E" }}>{t.nav.howItWorks}</a>
+          <a href="#occasions" className="font-semibold text-sm transition-colors hover:text-yellow-500" style={{ color: "#1A1A2E" }}>{t.nav.occasions}</a>
         </div>
 
         <div className="flex items-center gap-3">
+          {/* Language Toggle */}
+          <div className="flex bg-gray-100 rounded-full p-1 border border-gray-200">
+            <button
+              onClick={() => setLanguage("en")}
+              className={`text-xs font-bold px-3 py-1 rounded-full transition-all ${language === "en" ? "bg-white shadow-sm text-yellow-600" : "text-gray-500 hover:text-gray-800"}`}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLanguage("hi")}
+              className={`text-xs font-bold px-3 py-1 rounded-full transition-all ${language === "hi" ? "bg-white shadow-sm text-yellow-600" : "text-gray-500 hover:text-gray-800"}`}
+            >
+              हिंदी
+            </button>
+          </div>
+          
           <Link
             href="/mood-predictor"
             className="font-semibold text-sm px-4 py-1.5 rounded-full transition-all hover:scale-105"
@@ -64,9 +75,11 @@ export default function Navbar() {
             className="font-display text-sm px-5 py-2 rounded-full text-white transition-transform hover:scale-105"
             style={{ background: "linear-gradient(135deg, #FFB800, #FF6B6B)" }}
           >
-            Order Now 🥚
+            {t.nav.orderNow}
           </a>
         </div>
+      </div>
     </nav>
   );
 }
+

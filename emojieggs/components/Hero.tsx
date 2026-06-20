@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { EggWithFace } from "./FaceEmoji";
+import { useLanguage } from "@/context/LanguageContext";
 
 const floatingFaces = [
   { faceId: "laugh", size: 90, left: "8%", top: "20%", delay: "0s" },
@@ -14,6 +15,7 @@ const orbitFaces = ["laugh","love","cool","wink","sad"];
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const el = ref.current;
@@ -43,14 +45,14 @@ export default function Hero() {
         {/* Text */}
         <div ref={ref} className="reveal">
           <span className="badge" style={{ background: "#FFB800", color: "#1A1A2E", marginBottom: 16, display: "inline-block" }}>
-            🥚 Fresh · Fun · Personalized
+            {t.hero.badge}
           </span>
           <h1 className="font-display leading-tight" style={{ fontSize: "clamp(2.8rem,6vw,4.5rem)", color: "#1A1A2E", marginBottom: 20 }}>
-            Eggs That Match<br />
-            <span style={{ color: "#FFB800" }}>Your Every Mood</span>
+            {t.hero.title1}<br />
+            <span style={{ color: "#FFB800" }}>{t.hero.title2}</span>
           </h1>
           <p className="text-lg font-semibold" style={{ color: "#555", maxWidth: 440, lineHeight: 1.7, marginBottom: 32 }}>
-            Pick your occasion, choose an expression, customise how many — we print it fresh on every egg shell. Eat with a smile, every single morning.
+            {t.hero.subtitle}
           </p>
           <div className="flex flex-wrap gap-4">
             <a
@@ -58,24 +60,43 @@ export default function Hero() {
               className="font-display px-8 py-4 rounded-full text-white text-lg shadow-lg transition-transform hover:scale-105"
               style={{ background: "linear-gradient(135deg, #FFB800, #FF6B6B)", boxShadow: "0 8px 25px rgba(255,184,0,0.4)" }}
             >
-              Customise Your Eggs 🎨
+              {t.hero.btnPrimary}
             </a>
             <a
               href="#how-it-works"
               className="font-display px-8 py-4 rounded-full text-lg border-2 transition-all hover:bg-yellow-50"
               style={{ borderColor: "#FFB800", color: "#1A1A2E" }}
             >
-              See How It Works
+              {t.hero.btnSecondary}
             </a>
           </div>
           <div className="flex gap-8 mt-12">
-            {[["16+", "Face Expressions"], ["8", "Occasions"], ["⭐ 4.9", "Happy Customers"]].map(([val, label]) => (
+            {[["16+", t.hero.stats.expr], ["8", t.hero.stats.occ], ["⭐ 4.9", t.hero.stats.cust]].map(([val, label]) => (
               <div key={label}>
                 <div className="font-display text-2xl" style={{ color: "#FFB800" }}>{val}</div>
                 <div className="text-xs font-semibold" style={{ color: "#888" }}>{label}</div>
               </div>
             ))}
           </div>
+          
+          {/* Video Section */}
+          <div className="mt-12 bg-white p-4 rounded-2xl shadow-lg border border-yellow-100 relative overflow-hidden" style={{ maxWidth: 440 }}>
+            <h3 className="font-display text-lg mb-3" style={{ color: "#1A1A2E" }}>{t.hero.videoTitle}</h3>
+            <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center group cursor-pointer border border-gray-200">
+              {/* Fallback Placeholder (replace src with actual youtube URL) */}
+              <iframe 
+                width="100%" 
+                height="100%" 
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                title="Hindi Explanation Video" 
+                frameBorder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              ></iframe>
+            </div>
+          </div>
+
         </div>
 
         {/* Hero egg showcase */}
