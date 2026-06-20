@@ -113,10 +113,10 @@ export const en = {
     badge: "Real Stories",
     title: "Happy Customers, Happier Eggs 🥚",
     reviews: [
-      { name: "Priya S.", city: "Delhi", emoji: "🥰", review: "Ordered birthday eggs for my son — he refused to eat them because they were too cute! 10/10", stars: 5 },
-      { name: "Rahul M.", city: "Mumbai", emoji: "😂", review: "The Monday Blues pack with the coffee emoji hit different. My whole office wants to order now.", stars: 5 },
-      { name: "Ananya K.", city: "Bangalore", emoji: "❤️", review: "Valentine's Day surprise with rose emojis on every egg. My girlfriend was literally in tears (happy ones).", stars: 5 },
-      { name: "Vikram J.", city: "Pune", emoji: "🎉", review: "Party pack for 48 people with different emojis — everyone was comparing eggs before eating. Genius idea!", stars: 5 },
+      { name: "Priya S.", city: "Patna", emoji: "🥰", review: "Ordered birthday eggs for my son — he refused to eat them because they were too cute! 10/10", stars: 5 },
+      { name: "Rahul M.", city: "Ludhiana", emoji: "😂", review: "The Monday Blues pack with the coffee emoji hit different. My whole office wants to order now.", stars: 5 },
+      { name: "Ananya K.", city: "Jalandhar", emoji: "❤️", review: "I ordered the 'Love & Romance' pack for my husband. He loved the rose emojis on the eggs so much, he framed one instead of eating it!", stars: 5 },
+      { name: "Vikram J.", city: "Amritsar", emoji: "🎉", review: "Party pack for 48 people with different emojis — everyone was comparing eggs before eating. Genius idea!", stars: 5 },
     ]
   },
   footer: {
