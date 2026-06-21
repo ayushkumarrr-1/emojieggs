@@ -8,12 +8,12 @@ const OCCASIONS_IDS = ["birthday", "love", "monday", "exam", "party", "morning",
 const PACKS_IDS = [
   { id: "Half Dozen", qty: 6, price: 55 },
   { id: "Full Dozen", qty: 12, price: 102 },
-  { id: "Double Dozen", qty: 24, price: 190 },
-  { id: "Party Pack", qty: 48, price: 380 },
+  { id: "Double Dozen", qty: 24, price: 195 },
+  { id: "Party Pack", qty: 48, price: 390 },
 ];
 
 const EXTRAS_IDS = [
-  { id: "box", price: 29 },
+  { id: "box", price: 59 },
   { id: "card", price: 15 },
   { id: "express", price: 39 },
 ];
