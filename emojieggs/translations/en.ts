@@ -18,8 +18,7 @@ export const en = {
       expr: "Face Expressions",
       occ: "Occasions",
       cust: "Happy Customers"
-    },
-    videoTitle: "What is EmojiEggs?"
+    }
   },
   howItWorks: {
     badge: "Simple Process",

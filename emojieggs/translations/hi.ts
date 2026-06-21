@@ -18,8 +18,7 @@ export const hi = {
       expr: "चेहरे के भाव",
       occ: "अवसर",
       cust: "खुश ग्राहक"
-    },
-    videoTitle: "इमोजी एग्स क्या है?"
+    }
   },
   howItWorks: {
     badge: "सरल प्रक्रिया",

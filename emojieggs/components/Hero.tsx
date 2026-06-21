@@ -78,24 +78,6 @@ export default function Hero() {
               </div>
             ))}
           </div>
-          
-          {/* Video Section */}
-          <div className="mt-12 bg-white p-4 rounded-2xl shadow-lg border border-yellow-100 relative overflow-hidden" style={{ maxWidth: 440 }}>
-            <h3 className="font-display text-lg mb-3" style={{ color: "#1A1A2E" }}>{t.hero.videoTitle}</h3>
-            <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center group cursor-pointer border border-gray-200">
-              {/* Fallback Placeholder (replace src with actual youtube URL) */}
-              <iframe 
-                width="100%" 
-                height="100%" 
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                title="Hindi Explanation Video" 
-                frameBorder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowFullScreen
-                className="absolute inset-0 w-full h-full"
-              ></iframe>
-            </div>
-          </div>
 
         </div>
 
