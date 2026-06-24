@@ -8,6 +8,7 @@ interface OrderPayload {
   customerName?: string;
   customerPhone?: string;
   customerAddress?: string;
+  customerMessage?: string;
   pack?: string;
   occasion?: string;
   faces?: string;
@@ -20,6 +21,7 @@ function buildHtmlEmail(data: OrderPayload): string {
     customerName = '',
     customerPhone = '',
     customerAddress = '',
+    customerMessage = '',
     pack = '',
     occasion = '',
     faces = '',
@@ -69,6 +71,12 @@ function buildHtmlEmail(data: OrderPayload): string {
                         <td style="padding:6px 0;font-size:14px;color:#888;font-weight:600;">Address</td>
                         <td style="padding:6px 0;font-size:14px;color:#1A1A2E;font-weight:700;">${customerAddress}</td>
                       </tr>
+                      ${customerMessage ? `
+                      <tr>
+                        <td style="padding:6px 0;font-size:14px;color:#888;font-weight:600;">Message</td>
+                        <td style="padding:6px 0;font-size:14px;color:#1A1A2E;font-weight:700;">${customerMessage}</td>
+                      </tr>
+                      ` : ''}
                     </table>
                   </td>
                 </tr>

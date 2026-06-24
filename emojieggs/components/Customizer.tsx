@@ -35,6 +35,7 @@ export default function Customizer() {
   const [customerName, setCustomerName] = useState("");
   const [customerAddress, setCustomerAddress] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
+  const [customerMessage, setCustomerMessage] = useState("");
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [orderSent, setOrderSent] = useState(false);
@@ -90,6 +91,7 @@ export default function Customizer() {
       `Name: ${customerName}`,
       `Address: ${customerAddress}`,
       `Phone: ${customerPhone}`,
+      ...(extras.includes("card") && customerMessage.trim() ? [`Message: ${customerMessage}`] : []),
       `Pack: ${t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} (${pack.qty} Eggs)`,
       `Occasion: ${t.customizer.occasions[occasion as keyof typeof t.customizer.occasions]}`,
       `Faces: ${facesText}`,
@@ -107,6 +109,7 @@ export default function Customizer() {
             customerName,
             customerPhone,
             customerAddress,
+            customerMessage: extras.includes("card") ? customerMessage : undefined,
             pack: `${t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} (${pack.qty} Eggs)`,
             occasion: t.customizer.occasions[occasion as keyof typeof t.customizer.occasions],
             faces: facesText,
@@ -455,6 +458,9 @@ export default function Customizer() {
                   <input type="text" placeholder={t.customizer.modal.name} value={customerName} onChange={e => setCustomerName(e.target.value)} className="border p-2 rounded" />
                   <input type="text" placeholder={t.customizer.modal.address} value={customerAddress} onChange={e => setCustomerAddress(e.target.value)} className="border p-2 rounded" />
                   <input type="tel" placeholder={t.customizer.modal.phone} value={customerPhone} onChange={e => setCustomerPhone(e.target.value)} className="border p-2 rounded" />
+                  {extras.includes("card") && (
+                    <textarea placeholder={t.customizer.modal.message} value={customerMessage} onChange={e => setCustomerMessage(e.target.value)} className="border p-2 rounded" rows={3} />
+                  )}
                 </div>
                 <button
                   onClick={() => {
