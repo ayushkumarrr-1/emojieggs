@@ -4,7 +4,7 @@ export const hi = {
     howItWorks: "यह कैसे काम करता है",
     occasions: "अवसर",
     testimonials: "प्रशंसापत्र",
-    orderNow: "अभी ऑर्डर करें 🥚",
+    orderNow: "वेटलिस्ट में शामिल हों 🥚",
     moodGame: "🔮 मूड गेम"
   },
   hero: {

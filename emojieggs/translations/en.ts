@@ -4,7 +4,7 @@ export const en = {
     howItWorks: "How It Works",
     occasions: "Occasions",
     testimonials: "Testimonials",
-    orderNow: "Order Now 🥚",
+    orderNow: "Join the Waitlist 🥚",
     moodGame: "🔮 Mood Game"
   },
   hero: {
