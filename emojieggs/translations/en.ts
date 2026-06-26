@@ -8,7 +8,7 @@ export const en = {
     moodGame: "🔮 Mood Game"
   },
   hero: {
-    badge: "🥚 Fresh · Fun · Personalized",
+    badge: "🥚 100% Real Farm Fresh Eggs",
     title1: "Eggs That Match",
     title2: "Your Every Mood",
     subtitle: "Pick your occasion, choose an expression, customise how many — we print it fresh on every egg shell. Eat with a smile, every single morning.",

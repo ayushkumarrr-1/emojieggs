@@ -44,7 +44,7 @@ export default function Hero() {
       <div className="max-w-6xl mx-auto px-6 py-32 relative z-10 grid md:grid-cols-2 gap-16 items-center">
         {/* Text */}
         <div ref={ref} className="reveal">
-          <span className="badge" style={{ background: "#FFB800", color: "#1A1A2E", marginBottom: 16, display: "inline-block" }}>
+          <span className="badge font-bold text-lg animate-bounce" style={{ background: "#FF3333", color: "#FFFFFF", marginBottom: 16, display: "inline-block", padding: "8px 24px", boxShadow: "0 8px 25px rgba(255,51,51,0.5)", border: "2px solid white", textTransform: "uppercase", letterSpacing: "1px" }}>
             {t.hero.badge}
           </span>
           <h1 className="font-display leading-tight" style={{ fontSize: "clamp(2.8rem,6vw,4.5rem)", color: "#1A1A2E", marginBottom: 20 }}>
