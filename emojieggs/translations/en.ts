@@ -45,7 +45,7 @@ export const en = {
   },
   howItWorks: {
     badge: "Simple Process",
-    title: "4 Steps to a Happier Breakfast",
+    title: "4 Steps to the World's Most Edible Greeting Card",
     steps: [
       { icon: "🎯", title: "Pick an Occasion", desc: "Birthday, Monday blues, anniversary, exam day — we have an occasion for every feeling." },
       { icon: "😄", title: "Choose Your Emoji", desc: "Browse 50+ emojis curated for that occasion. Mix and match across your dozen." },

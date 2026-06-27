@@ -31,7 +31,7 @@ export default function Navbar() {
             <span style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-48%)", fontSize: "1.1rem", pointerEvents: "none", zIndex: 2 }}>😊</span>
           </div>
           <div>
-            <span className="font-display text-xl" style={{ color: "#1A1A2E" }}>EmojiEggs</span>
+            <span className="font-display text-xl" style={{ color: "#1A1A2E" }}>Em🥚jiEggs</span>
             <span className="block text-xs font-semibold" style={{ color: "#FFB800", marginTop: -3 }}>We Value Your Happiness</span>
           </div>
         </div>
