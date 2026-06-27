@@ -44,8 +44,8 @@ export default function Hero() {
   const orbitR = isMobile ? 90 : 130;
   const containerW = isMobile ? 220 : 300;
   const containerH = isMobile ? 250 : 340;
-  const orbitCenterX = isMobile ? 60 : 85;
-  const orbitCenterY = isMobile ? 75 : 110;
+  const orbitCenterX = (containerW - orbitW) / 2;
+  const orbitCenterY = (containerH - orbitH) / 2;
 
   return (
     <section className="hero-bg min-h-screen relative overflow-hidden flex items-center" id="home">
@@ -102,7 +102,7 @@ export default function Hero() {
 
         {/* Hero egg showcase */}
         <div className="flex justify-center">
-          <div className="relative" style={{ width: containerW, height: containerH }}>
+          <div className="relative flex items-center justify-center" style={{ width: containerW, height: containerH }}>
             <div style={{ animation: "float 3.5s ease-in-out infinite", display: "inline-block" }}>
               <EggWithFace faceId="happy" eggWidth={centerW} eggHeight={centerH} />
             </div>
