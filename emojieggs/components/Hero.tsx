@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EggWithFace } from "./FaceEmoji";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -16,6 +16,14 @@ const orbitFaces = ["laugh","love","cool","wink","sad"];
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
@@ -27,6 +35,17 @@ export default function Hero() {
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
+
+  // Responsive sizes for the egg showcase
+  const centerW = isMobile ? 90 : 130;
+  const centerH = isMobile ? 112 : 162;
+  const orbitW = isMobile ? 42 : 58;
+  const orbitH = isMobile ? 52 : 72;
+  const orbitR = isMobile ? 90 : 130;
+  const containerW = isMobile ? 220 : 300;
+  const containerH = isMobile ? 250 : 340;
+  const orbitCenterX = isMobile ? 60 : 85;
+  const orbitCenterY = isMobile ? 75 : 110;
 
   return (
     <section className="hero-bg min-h-screen relative overflow-hidden flex items-center" id="home">
@@ -83,18 +102,17 @@ export default function Hero() {
 
         {/* Hero egg showcase */}
         <div className="flex justify-center">
-          <div className="relative" style={{ width: 300, height: 340 }}>
+          <div className="relative" style={{ width: containerW, height: containerH }}>
             <div style={{ animation: "float 3.5s ease-in-out infinite", display: "inline-block" }}>
-              <EggWithFace faceId="happy" eggWidth={130} eggHeight={162} />
+              <EggWithFace faceId="happy" eggWidth={centerW} eggHeight={centerH} />
             </div>
             {orbitFaces.map((faceId, i) => {
               const rad = (i * 72 * Math.PI) / 180;
-              const r = 130;
-              const x = 85 + r * Math.cos(rad);
-              const y = 110 + r * Math.sin(rad) * 0.55;
+              const x = orbitCenterX + orbitR * Math.cos(rad);
+              const y = orbitCenterY + orbitR * Math.sin(rad) * 0.55;
               return (
                 <div key={i} className="absolute" style={{ left: x, top: y, animation: `float 4s ease-in-out ${i * 0.6}s infinite` }}>
-                  <EggWithFace faceId={faceId} eggWidth={58} eggHeight={72} />
+                  <EggWithFace faceId={faceId} eggWidth={orbitW} eggHeight={orbitH} />
                 </div>
               );
             })}
@@ -110,3 +128,4 @@ export default function Hero() {
     </section>
   );
 }
+
