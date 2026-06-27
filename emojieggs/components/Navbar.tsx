@@ -31,7 +31,14 @@ export default function Navbar() {
             <span style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-48%)", fontSize: "1.1rem", pointerEvents: "none", zIndex: 2 }}>😊</span>
           </div>
           <div>
-            <span className="font-display text-xl" style={{ color: "#1A1A2E" }}>Em🥚jiEggs</span>
+            <span className="font-display text-xl inline-flex items-center" style={{ color: "#1A1A2E" }}>
+              Em
+              <div className="egg-wrapper mx-[2px]" style={{ width: 18, height: 24 }}>
+                <div className="egg-3d" style={{ width: '100%', height: '100%' }} />
+                <span style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-48%)", fontSize: "0.65rem", pointerEvents: "none", zIndex: 2 }}>😊</span>
+              </div>
+              jiEggs
+            </span>
             <span className="block text-xs font-semibold" style={{ color: "#FFB800", marginTop: -3 }}>We Value Your Happiness</span>
           </div>
         </div>
