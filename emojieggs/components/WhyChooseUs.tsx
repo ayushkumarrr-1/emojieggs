@@ -16,14 +16,14 @@ export default function WhyChooseUs() {
   }, []);
 
   return (
-    <section className="py-24 bg-[#FFF8E7]" id="why-choose-us">
-      <div className="max-w-5xl mx-auto px-6 text-center">
+    <section className="py-16 md:py-24 bg-[#FFF8E7]" id="why-choose-us">
+      <div className="max-w-5xl mx-auto px-4 md:px-6 text-center">
         <span className="badge" style={{ background: "#FFD1DC", color: "#B3003B" }}>{t.whyChooseUs.badge}</span>
         <h2 className="font-display mt-4 mb-12" style={{ fontSize: "clamp(2rem,4vw,2.5rem)", color: "#1A1A2E" }}>
           {t.whyChooseUs.title}
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {t.whyChooseUs.cards.map((card: any, i: number) => (
             <div
               key={i}

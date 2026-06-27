@@ -28,8 +28,8 @@ export default function Occasions() {
   }, []);
 
   return (
-    <section className="py-24 bg-white" id="occasions">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-16 md:py-24 bg-white" id="occasions">
+      <div className="max-w-6xl mx-auto px-4 md:px-6">
         <div className="text-center mb-14">
           <span className="badge" style={{ background: "#FFF0C8", color: "#CC8800" }}>{t.occasions.badge}</span>
           <h2 className="font-display mt-3" style={{ fontSize: "clamp(2rem,4vw,3rem)", color: "#1A1A2E" }}>

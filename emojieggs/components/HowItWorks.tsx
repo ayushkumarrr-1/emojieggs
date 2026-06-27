@@ -16,8 +16,8 @@ export default function HowItWorks() {
   }, []);
 
   return (
-    <section className="py-24 bg-white" id="how-it-works">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-16 md:py-24 bg-white" id="how-it-works">
+      <div className="max-w-6xl mx-auto px-4 md:px-6">
         <div className="text-center mb-16">
           <span className="badge" style={{ background: "#FFF0C8", color: "#CC8800" }}>{t.howItWorks.badge}</span>
           <h2 className="font-display mt-3" style={{ fontSize: "clamp(2rem,4vw,3rem)", color: "#1A1A2E" }}>
@@ -25,7 +25,7 @@ export default function HowItWorks() {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {t.howItWorks.steps.map((s, i) => (
             <div
               key={i}

@@ -34,14 +34,14 @@ export default function Hero() {
       {floatingFaces.map((e, i) => (
         <div
           key={i}
-          className="absolute"
+          className="absolute hidden md:block"
           style={{ left: e.left, top: e.top, animation: `float 4s ease-in-out ${e.delay} infinite`, opacity: 0.4 }}
         >
           <EggWithFace faceId={e.faceId} eggWidth={e.size} eggHeight={e.size * 1.25} />
         </div>
       ))}
 
-      <div className="max-w-6xl mx-auto px-6 py-32 relative z-10 grid md:grid-cols-2 gap-16 items-center">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-20 md:py-32 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center text-center md:text-left mt-8 md:mt-0">
         {/* Text */}
         <div ref={ref} className="reveal">
           <span className="badge font-bold text-lg animate-bounce" style={{ background: "#FF3333", color: "#FFFFFF", marginBottom: 16, display: "inline-block", padding: "8px 24px", boxShadow: "0 8px 25px rgba(255,51,51,0.5)", border: "2px solid white", textTransform: "uppercase", letterSpacing: "1px" }}>
@@ -54,7 +54,7 @@ export default function Hero() {
           <p className="text-lg font-semibold" style={{ color: "#555", maxWidth: 440, lineHeight: 1.7, marginBottom: 32 }}>
             {t.hero.subtitle}
           </p>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap justify-center md:justify-start gap-4">
             <a
               href="#order"
               className="font-display px-8 py-4 rounded-full text-white text-lg shadow-lg transition-transform hover:scale-105"
@@ -70,7 +70,7 @@ export default function Hero() {
               {t.hero.btnSecondary}
             </a>
           </div>
-          <div className="flex gap-8 mt-12">
+          <div className="flex justify-center md:justify-start gap-8 mt-12">
             {[["16+", t.hero.stats.expr], ["8", t.hero.stats.occ], ["⭐ 4.9", t.hero.stats.cust]].map(([val, label]) => (
               <div key={label}>
                 <div className="font-display text-2xl" style={{ color: "#FFB800" }}>{val}</div>
