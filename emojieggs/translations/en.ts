@@ -10,7 +10,7 @@ export const en = {
   hero: {
     badge: "🥚 100% Real Farm Fresh Eggs",
     title1: "Eggs That Match",
-    title2: "Your Every Mood",
+    title2: "Your Every Emotion",
     subtitle: "Pick your occasion, choose an expression, customise how many — we print it fresh on every egg shell. Eat with a smile, every single morning.",
     btnPrimary: "Customise Your Eggs 🎨",
     btnSecondary: "See How It Works",
@@ -19,6 +19,29 @@ export const en = {
       occ: "Occasions",
       cust: "Happy Customers"
     }
+  },
+  whyChooseUs: {
+    badge: "The True Gift",
+    title: "Gift Memories, Not Just Products",
+    cards: [
+      {
+        icon: "🌹",
+        title: "A Rose Dries Up",
+        desc: "Beautiful, but wilts in just 2 days."
+      },
+      {
+        icon: "🍫",
+        title: "Chocolate Melts",
+        desc: "Sweet, but eaten and gone in 10 minutes."
+      },
+      {
+        icon: "🎂",
+        title: "Cake Disappears",
+        desc: "Celebrated, but cut and finished instantly."
+      }
+    ],
+    highlight: "What truly remains is lots of memories and emotions, not the product.",
+    subtext: "Choose something unforgettable. Every emoji egg is a personalized moment that stays in the heart forever."
   },
   howItWorks: {
     badge: "Simple Process",
@@ -31,7 +54,7 @@ export const en = {
     ]
   },
   occasions: {
-    badge: "Every Mood",
+    badge: "Every Emotion",
     title: "A Face for Every Occasion",
     items: {
       "star_eyes": "Birthdays",
