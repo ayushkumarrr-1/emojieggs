@@ -34,7 +34,7 @@ export default function WhyChooseUs() {
                 transitionDelay: `${i * 0.15}s`,
               }}
             >
-              <div className="text-5xl mb-4 grayscale opacity-80 transition-all hover:grayscale-0 hover:opacity-100 duration-300">{card.icon}</div>
+              <div className="text-5xl mb-4 transition-transform hover:scale-110 duration-300">{card.icon}</div>
               <h3 className="font-display text-lg mb-2 text-gray-800">{card.title}</h3>
               <p className="text-sm font-medium text-gray-500 leading-relaxed">{card.desc}</p>
             </div>
