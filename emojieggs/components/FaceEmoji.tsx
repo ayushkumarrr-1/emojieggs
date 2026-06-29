@@ -704,84 +704,108 @@ export function EggWithFace({ faceId, eggWidth, eggHeight }: EggFaceProps) {
                 userSelect: "none",
               }}
             >
-              {/* Shadow under the egg */}
+              {/* Shadow under the egg (remains unrotated on the ground) */}
               <div style={{
                 position: "absolute",
-                bottom: "-20px",
+                bottom: "-25px",
                 left: "10%",
                 width: "80%",
                 height: "15px",
                 background: "rgba(0,0,0,0.1)",
                 borderRadius: "50%",
                 filter: "blur(6px)",
-                transform: "translateZ(-20px)",
+                transform: "translateZ(-30px)",
               }} />
               
-              {/* Base Egg Body */}
-              <div
-                style={{
-                  width: modalEggWidth,
-                  height: modalEggHeight,
-                  background: "radial-gradient(ellipse at 35% 30%, #ffffff 0%, #faf9f5 25%, #eae5d7 60%, #d5cfbf 85%, #bebaa8 100%)",
-                  borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
-                  boxShadow: "inset -12px -18px 30px rgba(135,125,105,0.25), inset 8px 10px 15px rgba(255,255,255,1), 0 15px 35px rgba(0,0,0,0.15)",
-                  position: "absolute",
-                  inset: 0,
-                  transformStyle: "preserve-3d",
-                }}
-              />
-              
-              {/* Gloss Highlight */}
-              <div style={{
-                position: "absolute",
-                top: "12%", left: "20%",
-                width: "28%", height: "22%",
-                background: "rgba(255,255,255,0.85)",
-                borderRadius: "50%",
-                filter: "blur(4px)",
-                transform: "rotate(-30deg) translateZ(10px)",
-                pointerEvents: "none",
-                zIndex: 3,
-              }}/>
-
-              {/* Spherical face mapping wrapper */}
+              {/* 3D Rotating Container (wraps the egg front, back, gloss and face) */}
               <div style={{
                 position: "absolute",
                 inset: 0,
-                borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
-                overflow: "hidden",
+                transform: `rotateY(${rotationY}deg) rotateX(${rotationX}deg)`,
                 transformStyle: "preserve-3d",
+                transition: isDraggingState ? "none" : "transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
               }}>
+                {/* Front Base Egg Body */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "radial-gradient(ellipse at 35% 30%, #ffffff 0%, #faf9f5 25%, #eae5d7 60%, #d5cfbf 85%, #bebaa8 100%)",
+                    borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+                    boxShadow: "inset -12px -18px 30px rgba(135,125,105,0.25), inset 8px 10px 15px rgba(255,255,255,1), 0 15px 35px rgba(0,0,0,0.15)",
+                    transformStyle: "preserve-3d",
+                    backfaceVisibility: "hidden",
+                    zIndex: 2,
+                  }}
+                />
+                
+                {/* Gloss Highlight (front side) */}
+                <div style={{
+                  position: "absolute",
+                  top: "12%", left: "20%",
+                  width: "28%", height: "22%",
+                  background: "rgba(255,255,255,0.85)",
+                  borderRadius: "50%",
+                  filter: "blur(4px)",
+                  transform: "rotate(-30deg) translateZ(8px)",
+                  pointerEvents: "none",
+                  zIndex: 4,
+                  backfaceVisibility: "hidden",
+                }}/>
+
+                {/* Spherical face mapping wrapper (front side) */}
                 <div style={{
                   position: "absolute",
                   inset: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  transform: `rotateY(${rotationY}deg) rotateX(${rotationX}deg) translateZ(20px)`,
+                  borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+                  overflow: "hidden",
                   transformStyle: "preserve-3d",
-                  transition: isDraggingState ? "none" : "transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
+                  backfaceVisibility: "hidden",
+                  zIndex: 3,
                 }}>
-                  {face ? (
-                    <svg
-                      viewBox="0 0 100 100"
-                      width={modalFaceSize}
-                      height={modalFaceSize}
-                      style={{
-                        filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.15))",
-                      }}
-                      xmlns="http://www.w3.org/2000/svg"
-                      dangerouslySetInnerHTML={{ __html: face.svg }}
-                    />
-                  ) : (
-                    <div style={{
-                      fontSize: modalFaceSize * 0.8,
-                      filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.15)) grayscale(100%) contrast(1.2)",
-                    }}>
-                      {faceId}
-                    </div>
-                  )}
+                  <div style={{
+                    position: "absolute",
+                    inset: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transform: "translateZ(12px)",
+                  }}>
+                    {face ? (
+                      <svg
+                        viewBox="0 0 100 100"
+                        width={modalFaceSize}
+                        height={modalFaceSize}
+                        style={{
+                          filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.15))",
+                        }}
+                        xmlns="http://www.w3.org/2000/svg"
+                        dangerouslySetInnerHTML={{ __html: face.svg }}
+                      />
+                    ) : (
+                      <div style={{
+                        fontSize: modalFaceSize * 0.8,
+                        filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.15)) grayscale(100%) contrast(1.2)",
+                      }}>
+                        {faceId}
+                      </div>
+                    )}
+                  </div>
                 </div>
+
+                {/* Back side of the egg shell (revealed when rotated 180 deg) */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "radial-gradient(ellipse at 35% 30%, #ffffff 0%, #faf9f5 25%, #eae5d7 60%, #d5cfbf 85%, #bebaa8 100%)",
+                    borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+                    boxShadow: "inset 12px -18px 30px rgba(135,125,105,0.25), inset -8px 10px 15px rgba(255,255,255,1), 0 15px 35px rgba(0,0,0,0.15)",
+                    transform: "rotateY(180deg)",
+                    backfaceVisibility: "hidden",
+                    zIndex: 1,
+                  }}
+                />
               </div>
             </div>
 
