@@ -490,7 +490,7 @@ export function EggWithFace({ faceId, eggWidth, eggHeight }: EggFaceProps) {
           transform: "translate(-50%, -50%)",
           zIndex: 2,
           fontSize: faceSize * 0.8,
-          filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.15))",
+          filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.15)) grayscale(100%) contrast(0) brightness(0.2)",
         }}>
           {faceId}
         </div>

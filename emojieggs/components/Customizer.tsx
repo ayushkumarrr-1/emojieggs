@@ -401,7 +401,7 @@ export default function Customizer() {
                 <p className="text-xs font-bold mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>{t.customizer.yourFaces}</p>
                 <div className="flex flex-wrap gap-2">
                   {(mode === "predesigned" ? selectedPrepack?.emojis : selectedFaces)?.map((id: string, idx: number) => (
-                    <FaceIcon key={idx} faceId={id} size={36} style={{ filter: mode === "predesigned" ? "none" : "invert(1) brightness(2)" }} />
+                    <FaceIcon key={idx} faceId={id} size={36} style={{ filter: mode === "predesigned" ? "grayscale(100%) contrast(0) brightness(2)" : "invert(1) brightness(2)" }} />
                   ))}
                 </div>
                 <p className="text-xs font-semibold mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
