@@ -446,13 +446,9 @@ export function EggWithFace({ faceId, eggWidth, eggHeight }: EggFaceProps) {
         style={{
           width: eggWidth,
           height: eggHeight,
-          background: !face 
-            ? "radial-gradient(ellipse at 35% 30%, #ffffff 0%, #f4f4f4 35%, #e8e8e8 65%, #d0d0d0 100%)"
-            : "radial-gradient(ellipse at 35% 30%, #fff9e6 0%, #FFD84D 35%, #FFB800 65%, #CC8800 100%)",
+          background: "radial-gradient(ellipse at 35% 30%, #fff9e6 0%, #FFD84D 35%, #FFB800 65%, #CC8800 100%)",
           borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
-          boxShadow: !face 
-            ? "inset -8px -12px 20px rgba(0,0,0,0.1), inset 6px 8px 15px rgba(255,255,255,0.8), 0 8px 30px rgba(0,0,0,0.1)"
-            : "inset -8px -12px 20px rgba(0,0,0,0.15), inset 6px 8px 15px rgba(255,255,255,0.6), 0 8px 30px rgba(255,184,0,0.4)",
+          boxShadow: "inset -8px -12px 20px rgba(0,0,0,0.15), inset 6px 8px 15px rgba(255,255,255,0.6), 0 8px 30px rgba(255,184,0,0.4)",
           position: "absolute",
           inset: 0,
         }}
