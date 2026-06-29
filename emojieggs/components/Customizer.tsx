@@ -360,7 +360,7 @@ export default function Customizer() {
               }}>
                 {preview.slice(0, 48).map((faceId, i) => (
                   <div key={i} style={{ display: "flex", justifyContent: "center" }}>
-                    <EggWithFace faceId={faceId} eggWidth={48} eggHeight={60} />
+                    <EggWithFace faceId={faceId} eggWidth={48} eggHeight={60} isWhite={true} />
                   </div>
                 ))}
               </div>

@@ -454,9 +454,10 @@ interface EggFaceProps {
   faceId: string;
   eggWidth: number;
   eggHeight: number;
+  isWhite?: boolean;
 }
 
-export function EggWithFace({ faceId, eggWidth, eggHeight }: EggFaceProps) {
+export function EggWithFace({ faceId, eggWidth, eggHeight, isWhite = false }: EggFaceProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [rotationX, setRotationX] = useState(0);
   const [rotationY, setRotationY] = useState(0);
@@ -535,27 +536,40 @@ export function EggWithFace({ faceId, eggWidth, eggHeight }: EggFaceProps) {
   const modalEggHeight = 275;
   const modalFaceSize = modalEggWidth * 0.7;
 
+  // Custom styling for golden vs white egg
+  const eggBackground = isWhite
+    ? "radial-gradient(ellipse at 35% 30%, #ffffff 0%, #faf9f5 25%, #eae5d7 60%, #d5cfbf 85%, #bebaa8 100%)"
+    : "radial-gradient(ellipse at 35% 30%, #fff9e6 0%, #FFD84D 35%, #FFB800 65%, #CC8800 100%)";
+    
+  const eggBoxShadow = isWhite
+    ? "inset -6px -8px 15px rgba(135,125,105,0.22), inset 4px 5px 8px rgba(255,255,255,1), 0 6px 15px rgba(0,0,0,0.08)"
+    : "inset -8px -12px 20px rgba(0,0,0,0.15), inset 6px 8px 15px rgba(255,255,255,0.6), 0 8px 30px rgba(255,184,0,0.4)";
+    
+  const eggGlossFilter = isWhite ? "blur(2px)" : "blur(3px)";
+
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: `
-        .egg-interactive-container {
-          transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease;
-        }
-        .egg-interactive-container:hover {
-          transform: scale(1.15) translateY(-4px);
-          z-index: 10;
-        }
-      `}} />
+      {isWhite && (
+        <style dangerouslySetInnerHTML={{ __html: `
+          .egg-interactive-container {
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease;
+          }
+          .egg-interactive-container:hover {
+            transform: scale(1.15) translateY(-4px);
+            z-index: 10;
+          }
+        `}} />
+      )}
       
       <div 
-        onClick={() => setIsOpen(true)}
-        className="egg-interactive-container"
+        onClick={isWhite ? () => setIsOpen(true) : undefined}
+        className={isWhite ? "egg-interactive-container" : ""}
         style={{ 
           position: "relative", 
           width: eggWidth, 
           height: eggHeight, 
           flexShrink: 0,
-          cursor: "pointer",
+          cursor: isWhite ? "pointer" : "default",
         }}
       >
         {/* Egg shape */}
@@ -563,9 +577,9 @@ export function EggWithFace({ faceId, eggWidth, eggHeight }: EggFaceProps) {
           style={{
             width: eggWidth,
             height: eggHeight,
-            background: "radial-gradient(ellipse at 35% 30%, #ffffff 0%, #faf9f5 25%, #eae5d7 60%, #d5cfbf 85%, #bebaa8 100%)",
+            background: eggBackground,
             borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
-            boxShadow: "inset -6px -8px 15px rgba(135,125,105,0.22), inset 4px 5px 8px rgba(255,255,255,1), 0 6px 15px rgba(0,0,0,0.08)",
+            boxShadow: eggBoxShadow,
             position: "absolute",
             inset: 0,
           }}
@@ -577,7 +591,7 @@ export function EggWithFace({ faceId, eggWidth, eggHeight }: EggFaceProps) {
           width: "28%", height: "22%",
           background: "rgba(255,255,255,0.85)",
           borderRadius: "50%",
-          filter: "blur(2px)",
+          filter: eggGlossFilter,
           transform: "rotate(-30deg)",
           pointerEvents: "none",
           zIndex: 3,
