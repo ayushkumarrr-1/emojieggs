@@ -369,6 +369,13 @@ export default function Customizer() {
                   ? t.customizer.previewDesc(preview.length, preview.length) 
                   : t.customizer.previewDesc(pack.qty, selectedFaces.length)}
               </p>
+              <div className="mt-4 p-3.5 rounded-2xl border border-dashed text-xs text-center leading-relaxed" style={{
+                background: "linear-gradient(135deg, #FFF9E6, #FFF0F0)",
+                borderColor: "#FFD3B6",
+                color: "#5C5C6A",
+              }}>
+                {t.customizer.previewDisclaimer}
+              </div>
             </div>
 
             {/* Price Card */}
