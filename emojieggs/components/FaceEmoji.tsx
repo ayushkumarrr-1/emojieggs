@@ -6,13 +6,17 @@ export const FACES: Record<string, { svg: string; label: string }> = {
   teary_smile: {
     label: "Teary Smile",
     svg: `
-      <circle cx="35" cy="42" r="7" fill="black"/>
-      <circle cx="65" cy="42" r="7" fill="black"/>
-      <circle cx="38" cy="40" r="2.5" fill="white"/>
-      <circle cx="68" cy="40" r="2.5" fill="white"/>
+      <path d="M23 30 Q32 22 41 25" stroke="black" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M77 30 Q68 22 59 25" stroke="black" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="35" cy="42" r="9" fill="black"/>
+      <circle cx="65" cy="42" r="9" fill="black"/>
+      <circle cx="32" cy="38" r="3" fill="white"/>
+      <circle cx="62" cy="38" r="3" fill="white"/>
+      <circle cx="38" cy="45" r="1.5" fill="white"/>
+      <circle cx="68" cy="45" r="1.5" fill="white"/>
       <path d="M30 64 Q50 78 70 64" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>
-      <path d="M33 48 Q29 56 33 64" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>
-      <path d="M67 48 Q71 56 67 64" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
+      <path d="M33 48 Q29 56 33 64" stroke="black" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M67 48 Q71 56 67 64" stroke="black" stroke-width="3.5" fill="none" stroke-linecap="round"/>`,
   },
   love_hearts: {
     label: "Lots of Love",
@@ -235,12 +239,14 @@ export const FACES: Record<string, { svg: string; label: string }> = {
   pleading: {
     label: "Pleading",
     svg: `
-      <circle cx="35" cy="38" r="10" fill="none" stroke="black" stroke-width="3.5"/>
-      <circle cx="65" cy="38" r="10" fill="none" stroke="black" stroke-width="3.5"/>
-      <circle cx="35" cy="40" r="6" fill="black"/>
-      <circle cx="65" cy="40" r="6" fill="black"/>
-      <circle cx="40" cy="34" r="2.5" fill="white" stroke="black" stroke-width="1"/>
-      <circle cx="70" cy="34" r="2.5" fill="white" stroke="black" stroke-width="1"/>
+      <path d="M23 26 Q32 18 41 21" stroke="black" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M77 26 Q68 18 59 21" stroke="black" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="35" cy="38" r="10" fill="black"/>
+      <circle cx="65" cy="38" r="10" fill="black"/>
+      <circle cx="32" cy="34" r="3.5" fill="white"/>
+      <circle cx="62" cy="34" r="3.5" fill="white"/>
+      <circle cx="39" cy="42" r="1.8" fill="white"/>
+      <circle cx="69" cy="42" r="1.8" fill="white"/>
       <path d="M38 66 Q50 72 62 66" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>`,
   },
   mischievous: {
