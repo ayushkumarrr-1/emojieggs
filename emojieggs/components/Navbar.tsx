@@ -34,10 +34,6 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2 shrink-0">
-          <div className="egg-wrapper" style={{ display: "inline-block" }}>
-            <div className="egg-3d" style={{ width: 36, height: 46 }} />
-            <span style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-48%)", fontSize: "1.1rem", pointerEvents: "none", zIndex: 2 }}>😊</span>
-          </div>
           <div>
             <span className="font-display text-xl inline-flex items-center" style={{ color: "#1A1A2E" }}>
               Em
