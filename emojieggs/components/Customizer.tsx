@@ -406,7 +406,7 @@ export default function Customizer() {
                 </div>
                 <p className="text-xs font-semibold mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
                   {mode === "predesigned" 
-                    ? t.customizer.onEggs(12, selectedPrepack?.theme)
+                    ? t.customizer.onEggs(12, selectedPrepack?.theme || "")
                     : t.customizer.onEggs(pack.qty, t.customizer.occasions[occasion as keyof typeof t.customizer.occasions])}
                 </p>
               </div>
