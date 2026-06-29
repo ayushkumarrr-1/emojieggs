@@ -239,8 +239,8 @@ export const FACES: Record<string, { svg: string; label: string }> = {
   pleading: {
     label: "Pleading",
     svg: `
-      <path d="M23 21 Q32 29 41 26" stroke="black" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path d="M77 21 Q68 29 59 26" stroke="black" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M23 26 Q32 18 41 21" stroke="black" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M77 26 Q68 18 59 21" stroke="black" stroke-width="3" fill="none" stroke-linecap="round"/>
       <circle cx="35" cy="38" r="10" fill="black"/>
       <circle cx="65" cy="38" r="10" fill="black"/>
       <circle cx="32" cy="34" r="3.5" fill="white"/>
