@@ -130,7 +130,85 @@ export const en = {
       "box": "🎁 Gift Box",
       "card": "💌 Message Card",
       "express": "⚡ Express Delivery"
-    }
+    },
+    modes: {
+      custom: "🎨 Customise Your Own",
+      predesigned: "🎁 Pre-Designed Packs"
+    },
+    preDesignedPacks: [
+      {
+        id: "sorry",
+        name: "🥺 Sorry Pack",
+        theme: "Apology & making up",
+        emojis: ["🥺", "😔", "🙏", "❤️", "🤍", "😢", "🌹", "🫶", "💌", "😊", "🤝", "🥹"],
+        tagline: "Because some apologies deserve more than words.",
+        price: 139,
+      },
+      {
+        id: "proposal",
+        name: "💍 Proposal Pack",
+        theme: "Propose your partner",
+        emojis: ["🤵", "💍", "❤️", "🌹", "🥹", "✨", "🫶", "💖", "😍", "💌", "🥂", "👰"],
+        tagline: "The most unforgettable 'Will you marry me?'",
+        price: 139,
+      },
+      {
+        id: "love",
+        name: "❤️ Love Pack",
+        theme: "Romance & anniversaries",
+        emojis: ["🥰", "😘", "❤️", "😍", "💖", "🫶", "💕", "🌹", "😊", "💋", "✨", "🤍"],
+        tagline: "A dozen little ways to say 'I love you.'",
+        price: 139,
+      },
+      {
+        id: "missing",
+        name: "🥹 Missing You Pack",
+        theme: "Long-distance & nostalgia",
+        emojis: ["🥹", "😔", "❤️", "🫂", "🌙", "💌", "😘", "🤍", "✨", "🥺", "📱", "💖"],
+        tagline: "Distance ends where emotions begin.",
+        price: 139,
+      },
+      {
+        id: "hi",
+        name: "👋 Hi Pack",
+        theme: "Breaking the ice & starting conversations",
+        emojis: ["👋", "😊", "😄", "🤝", "☕", "💬", "😉", "✨", "🌼", "😁", "💛", "🙌"],
+        tagline: "The cutest way to say hello.",
+        price: 139,
+      },
+      {
+        id: "story_sorry",
+        name: "🎭 Story Pack: I'm Sorry",
+        theme: "Story 1: \"I'm Sorry\"",
+        emojis: ["😔", "🥺", "🙏", "🌹", "❤️", "🫶", "😊", "🤍", "🥹", "💌", "🤝", "🥰"],
+        tagline: "Instead of random emojis, every egg continues the story.",
+        price: 159,
+      },
+      {
+        id: "story_love",
+        name: "🎭 Story Pack: I Love You",
+        theme: "Story 2: \"I Love You\"",
+        emojis: ["👀", "😊", "🌹", "❤️", "💖", "🫶", "😘", "💍", "🥂", "🥹", "✨", "🥰"],
+        tagline: "Instead of random emojis, every egg continues the story.",
+        price: 159,
+      },
+      {
+        id: "story_hi",
+        name: "🎭 Story Pack: Say Hi",
+        theme: "Story 3: \"Say Hi\"",
+        emojis: ["👋", "😊", "💬", "😄", "☕", "🤝", "😂", "🌼", "✨", "💛", "🙌", "❤️"],
+        tagline: "Instead of random emojis, every egg continues the story.",
+        price: 159,
+      },
+      {
+        id: "story_miss",
+        name: "🎭 Story Pack: I Miss You",
+        theme: "Story 4: \"I Miss You\"",
+        emojis: ["🌙", "🥹", "💭", "❤️", "📱", "💌", "🫂", "🤍", "😘", "✨", "😊", "🥰"],
+        tagline: "Instead of random emojis, every egg continues the story.",
+        price: 159,
+      }
+    ]
   },
   testimonials: {
     badge: "Real Stories",

@@ -25,6 +25,9 @@ export default function Customizer() {
     setAdded(true);
     setShowFormModal(true);
   };
+  const [mode, setMode]                 = useState<"custom" | "predesigned">("custom");
+  const [selectedPrepackId, setSelectedPrepackId] = useState<string>("sorry");
+  
   const [occasion, setOccasion]         = useState(OCCASIONS_IDS[0]);
   const [selectedFaces, setSelectedFaces] = useState<string[]>(["happy"]);
   const [pack, setPack]                 = useState(PACKS_IDS[1]);
@@ -52,11 +55,18 @@ export default function Customizer() {
   }, []);
 
   useEffect(() => {
+    if (mode === "predesigned") {
+      const prepack = t.customizer.preDesignedPacks.find((p: any) => p.id === selectedPrepackId);
+      if (prepack) {
+        setPreview(prepack.emojis);
+      }
+      return;
+    }
     if (selectedFaces.length === 0) { setPreview([]); return; }
     const arr: string[] = [];
     for (let i = 0; i < pack.qty; i++) arr.push(selectedFaces[i % selectedFaces.length]);
     setPreview(arr);
-  }, [selectedFaces, pack]);
+  }, [selectedFaces, pack, mode, selectedPrepackId, t.customizer.preDesignedPacks]);
 
   const toggleFace = (id: string) => {
     setSelectedFaces((prev) =>
@@ -70,7 +80,10 @@ export default function Customizer() {
     setExtras((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
 
   const extraTotal = extras.reduce((s, id) => s + (EXTRAS_IDS.find((e) => e.id === id)?.price ?? 0), 0);
-  const total = pack.price + extraTotal;
+  
+  const selectedPrepack = t.customizer.preDesignedPacks.find((p: any) => p.id === selectedPrepackId);
+  const basePrice = mode === "predesigned" ? (selectedPrepack?.price || 139) : pack.price;
+  const total = basePrice + extraTotal;
 
   const [orderSending, setOrderSending] = useState(false);
   
@@ -85,16 +98,31 @@ export default function Customizer() {
     
     setOrderSending(true);
     const subject = `🥚 New EmojiEggs Order from ${customerName}`;
-    const facesText = selectedFaces.map(id => FACES[id]?.label || id).join(', ');
     const addOnsText = extras.length > 0 ? extras.map(id => t.customizer.extras[id as keyof typeof t.customizer.extras]).join(', ') : 'None';
+    
+    let orderDetails = [];
+    if (mode === "predesigned") {
+      orderDetails = [
+        `Mode: Pre-Designed Pack`,
+        `Pack: ${selectedPrepack?.name}`,
+        `Emojis: ${selectedPrepack?.emojis.join(' ')}`
+      ];
+    } else {
+      const facesText = selectedFaces.map(id => FACES[id]?.label || id).join(', ');
+      orderDetails = [
+        `Mode: Custom Pack`,
+        `Pack: ${t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} (${pack.qty} Eggs)`,
+        `Occasion: ${t.customizer.occasions[occasion as keyof typeof t.customizer.occasions]}`,
+        `Faces: ${facesText}`
+      ];
+    }
+
     const bodyLines = [
       `Name: ${customerName}`,
       `Address: ${customerAddress}`,
       `Phone: ${customerPhone}`,
       ...(extras.includes("card") && customerMessage.trim() ? [`Message: ${customerMessage}`] : []),
-      `Pack: ${t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} (${pack.qty} Eggs)`,
-      `Occasion: ${t.customizer.occasions[occasion as keyof typeof t.customizer.occasions]}`,
-      `Faces: ${facesText}`,
+      ...orderDetails,
       `Add-Ons: ${addOnsText}`,
       `Total: ₹${total}`,
     ];
@@ -110,9 +138,9 @@ export default function Customizer() {
             customerPhone,
             customerAddress,
             customerMessage: extras.includes("card") ? customerMessage : undefined,
-            pack: `${t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} (${pack.qty} Eggs)`,
-            occasion: t.customizer.occasions[occasion as keyof typeof t.customizer.occasions],
-            faces: facesText,
+            pack: mode === "predesigned" ? selectedPrepack?.name : `${t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} (${pack.qty} Eggs)`,
+            occasion: mode === "predesigned" ? selectedPrepack?.theme : t.customizer.occasions[occasion as keyof typeof t.customizer.occasions],
+            faces: mode === "predesigned" ? selectedPrepack?.emojis.join(', ') : selectedFaces.map(id => FACES[id]?.label || id).join(', '),
             addOns: addOnsText,
             total: `₹${total}`,
           })
@@ -144,100 +172,151 @@ export default function Customizer() {
         <div ref={revealRef} className="reveal grid lg:grid-cols-3 gap-8">
           {/* LEFT */}
           <div className="lg:col-span-2 flex flex-col gap-8">
-
-            {/* Step 1 */}
-            <div className="bg-white rounded-3xl p-8" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
-              <h3 className="font-display text-xl mb-5" style={{ color: "#1A1A2E" }}>
-                <span className="mr-2 text-2xl">🎯</span> {t.customizer.step1}
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {OCCASIONS_IDS.map((occId) => (
-                  <button
-                    key={occId}
-                    onClick={() => { setOccasion(occId); setSelectedFaces([OCCASION_FACES[occId][0]]); }}
-                    className={`occasion-card text-sm font-bold ${occasion === occId ? "active" : ""}`}
-                  >
-                    {t.customizer.occasions[occId as keyof typeof t.customizer.occasions]}
-                  </button>
-                ))}
-              </div>
+            
+            {/* Mode Selector */}
+            <div className="bg-white rounded-full p-2 flex" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
+              <button 
+                onClick={() => setMode("custom")}
+                className="flex-1 py-3 rounded-full font-bold text-sm transition-all"
+                style={{ 
+                  background: mode === "custom" ? "#1A1A2E" : "transparent",
+                  color: mode === "custom" ? "white" : "#666"
+                }}
+              >
+                {t.customizer.modes?.custom || "🎨 Customise Your Own"}
+              </button>
+              <button 
+                onClick={() => setMode("predesigned")}
+                className="flex-1 py-3 rounded-full font-bold text-sm transition-all"
+                style={{ 
+                  background: mode === "predesigned" ? "#1A1A2E" : "transparent",
+                  color: mode === "predesigned" ? "white" : "#666"
+                }}
+              >
+                {t.customizer.modes?.predesigned || "🎁 Pre-Designed Packs"}
+              </button>
             </div>
 
-            {/* Step 2 — Face picker */}
-            <div className="bg-white rounded-3xl p-8" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
-              <h3 className="font-display text-xl mb-2" style={{ color: "#1A1A2E" }}>
-                <span className="mr-2 text-2xl">😄</span> {t.customizer.step2}
-              </h3>
-              <p className="text-sm font-semibold mb-6" style={{ color: "#888" }}>
-                {t.customizer.step2Desc}
-              </p>
-              <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
-                {occasionFaces.map((faceId) => {
-                  const face = FACES[faceId];
-                  const isSelected = selectedFaces.includes(faceId);
-                  return (
-                    <button
-                      key={faceId}
-                      onClick={() => toggleFace(faceId)}
-                      title={face?.label}
-                      style={{
-                        border: `2.5px solid ${isSelected ? "#FF6B6B" : "#e5e7eb"}`,
-                        background: isSelected ? "#FFF0F0" : "white",
-                        borderRadius: 16,
-                        padding: 8,
-                        cursor: "pointer",
-                        transition: "all 0.2s",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        gap: 4,
-                        boxShadow: isSelected ? "0 0 0 3px rgba(255,107,107,0.2)" : "none",
-                        transform: isSelected ? "scale(1.05)" : "scale(1)",
-                      }}
-                    >
-                      <FaceIcon faceId={faceId} size={44} />
-                      <span style={{ fontSize: "0.6rem", fontWeight: 700, color: "#666", lineHeight: 1, textAlign: "center" }}>
-                        {face?.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {selectedFaces.length > 0 && (
-                <div className="mt-5 flex flex-wrap items-center gap-3">
-                  <span className="text-xs font-bold" style={{ color: "#888" }}>{t.customizer.selected}</span>
-                  {selectedFaces.map((id) => (
-                    <div key={id} style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                      <FaceIcon faceId={id} size={32} />
-                      <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "#555" }}>{FACES[id]?.label}</span>
-                    </div>
-                  ))}
+            {mode === "custom" ? (
+              <>
+                {/* Step 1 */}
+                <div className="bg-white rounded-3xl p-8" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
+                  <h3 className="font-display text-xl mb-5" style={{ color: "#1A1A2E" }}>
+                    <span className="mr-2 text-2xl">🎯</span> {t.customizer.step1}
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {OCCASIONS_IDS.map((occId) => (
+                      <button
+                        key={occId}
+                        onClick={() => { setOccasion(occId); setSelectedFaces([OCCASION_FACES[occId][0]]); }}
+                        className={`occasion-card text-sm font-bold ${occasion === occId ? "active" : ""}`}
+                      >
+                        {t.customizer.occasions[occId as keyof typeof t.customizer.occasions]}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              )}
-            </div>
 
-            {/* Step 3 */}
-            <div className="bg-white rounded-3xl p-8" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
-              <h3 className="font-display text-xl mb-5" style={{ color: "#1A1A2E" }}>
-                <span className="mr-2 text-2xl">🔢</span> {t.customizer.step3}
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {PACKS_IDS.map((p) => (
-                  <button
-                    key={p.qty}
-                    onClick={() => setPack(p)}
-                    className={`rounded-2xl p-5 border-2 text-center transition-all cursor-pointer ${pack.qty === p.qty ? "border-yellow-400 bg-yellow-50" : "border-gray-200 bg-white hover:border-yellow-300"}`}
-                  >
-                    <div className="font-display text-3xl" style={{ color: "#FFB800" }}>{p.qty}</div>
-                    <div className="font-bold text-sm mt-1" style={{ color: "#1A1A2E" }}>{t.customizer.packs[p.id as keyof typeof t.customizer.packs]}</div>
-                    <div className="font-display text-lg mt-2" style={{ color: "#FF6B6B" }}>₹{p.price}</div>
-                  </button>
-                ))}
-              </div>
-            </div>
+                {/* Step 2 — Face picker */}
+                <div className="bg-white rounded-3xl p-8" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
+                  <h3 className="font-display text-xl mb-2" style={{ color: "#1A1A2E" }}>
+                    <span className="mr-2 text-2xl">😄</span> {t.customizer.step2}
+                  </h3>
+                  <p className="text-sm font-semibold mb-6" style={{ color: "#888" }}>
+                    {t.customizer.step2Desc}
+                  </p>
+                  <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
+                    {occasionFaces.map((faceId) => {
+                      const face = FACES[faceId];
+                      const isSelected = selectedFaces.includes(faceId);
+                      return (
+                        <button
+                          key={faceId}
+                          onClick={() => toggleFace(faceId)}
+                          title={face?.label}
+                          style={{
+                            border: `2.5px solid ${isSelected ? "#FF6B6B" : "#e5e7eb"}`,
+                            background: isSelected ? "#FFF0F0" : "white",
+                            borderRadius: 16,
+                            padding: 8,
+                            cursor: "pointer",
+                            transition: "all 0.2s",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            gap: 4,
+                            boxShadow: isSelected ? "0 0 0 3px rgba(255,107,107,0.2)" : "none",
+                            transform: isSelected ? "scale(1.05)" : "scale(1)",
+                          }}
+                        >
+                          <FaceIcon faceId={faceId} size={44} />
+                          <span style={{ fontSize: "0.6rem", fontWeight: 700, color: "#666", lineHeight: 1, textAlign: "center" }}>
+                            {face?.label}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
 
-            {/* Step 4 */}
+                  {selectedFaces.length > 0 && (
+                    <div className="mt-5 flex flex-wrap items-center gap-3">
+                      <span className="text-xs font-bold" style={{ color: "#888" }}>{t.customizer.selected}</span>
+                      {selectedFaces.map((id) => (
+                        <div key={id} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                          <FaceIcon faceId={id} size={32} />
+                          <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "#555" }}>{FACES[id]?.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Step 3 */}
+                <div className="bg-white rounded-3xl p-8" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
+                  <h3 className="font-display text-xl mb-5" style={{ color: "#1A1A2E" }}>
+                    <span className="mr-2 text-2xl">🔢</span> {t.customizer.step3}
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    {PACKS_IDS.map((p) => (
+                      <button
+                        key={p.qty}
+                        onClick={() => setPack(p)}
+                        className={`rounded-2xl p-5 border-2 text-center transition-all cursor-pointer ${pack.qty === p.qty ? "border-yellow-400 bg-yellow-50" : "border-gray-200 bg-white hover:border-yellow-300"}`}
+                      >
+                        <div className="font-display text-3xl" style={{ color: "#FFB800" }}>{p.qty}</div>
+                        <div className="font-bold text-sm mt-1" style={{ color: "#1A1A2E" }}>{t.customizer.packs[p.id as keyof typeof t.customizer.packs]}</div>
+                        <div className="font-display text-lg mt-2" style={{ color: "#FF6B6B" }}>₹{p.price}</div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Pre-designed Step 1 */}
+                <div className="bg-white rounded-3xl p-8" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
+                  <h3 className="font-display text-xl mb-5" style={{ color: "#1A1A2E" }}>
+                    <span className="mr-2 text-2xl">🎁</span> {t.customizer.modes?.predesigned || "Pre-Designed Packs"}
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {(t.customizer.preDesignedPacks || []).map((p: any) => (
+                      <button
+                        key={p.id}
+                        onClick={() => setSelectedPrepackId(p.id)}
+                        className={`rounded-2xl p-5 border-2 text-left transition-all cursor-pointer ${selectedPrepackId === p.id ? "border-yellow-400 bg-yellow-50" : "border-gray-200 bg-white hover:border-yellow-300"}`}
+                      >
+                        <div className="font-display text-lg mb-1" style={{ color: "#1A1A2E" }}>{p.name}</div>
+                        <div className="font-bold text-xs mb-2" style={{ color: "#666" }}>{p.theme}</div>
+                        <div className="text-xs italic text-gray-500 mb-3">"{p.tagline}"</div>
+                        <div className="font-display text-lg" style={{ color: "#FF6B6B" }}>₹{p.price}</div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* Step 4 (or Step 2 in predesigned) */}
             <div className="bg-white rounded-3xl p-8" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
               <h3 className="font-display text-xl mb-5" style={{ color: "#1A1A2E" }}>
                 <span className="mr-2 text-2xl">✨</span> {t.customizer.step4}
@@ -286,7 +365,9 @@ export default function Customizer() {
                 ))}
               </div>
               <p className="text-xs font-semibold mt-3 text-center" style={{ color: "#aaa" }}>
-                {t.customizer.previewDesc(pack.qty, selectedFaces.length)}
+                {mode === "predesigned" 
+                  ? t.customizer.previewDesc(preview.length, preview.length) 
+                  : t.customizer.previewDesc(pack.qty, selectedFaces.length)}
               </p>
             </div>
 
@@ -296,9 +377,9 @@ export default function Customizer() {
               <div className="flex flex-col gap-3 mb-6">
                 <div className="flex justify-between items-center">
                   <span className="font-semibold" style={{ color: "rgba(255,255,255,0.75)" }}>
-                    {t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} ({pack.qty} eggs)
+                    {mode === "predesigned" ? selectedPrepack?.name : `${t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} (${pack.qty} eggs)`}
                   </span>
-                  <span className="font-display text-white text-lg">₹{pack.price}</span>
+                  <span className="font-display text-white text-lg">₹{basePrice}</span>
                 </div>
                 {extras.map((id) => {
                   const ex = EXTRAS_IDS.find((e) => e.id === id)!;
@@ -319,12 +400,14 @@ export default function Customizer() {
               <div className="mb-5 p-3 rounded-2xl" style={{ background: "rgba(255,255,255,0.08)" }}>
                 <p className="text-xs font-bold mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>{t.customizer.yourFaces}</p>
                 <div className="flex flex-wrap gap-2">
-                  {selectedFaces.map((id) => (
-                    <FaceIcon key={id} faceId={id} size={36} style={{ filter: "invert(1) brightness(2)" }} />
+                  {(mode === "predesigned" ? selectedPrepack?.emojis : selectedFaces)?.map((id: string, idx: number) => (
+                    <FaceIcon key={idx} faceId={id} size={36} style={{ filter: mode === "predesigned" ? "none" : "invert(1) brightness(2)" }} />
                   ))}
                 </div>
                 <p className="text-xs font-semibold mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  {t.customizer.onEggs(pack.qty, t.customizer.occasions[occasion as keyof typeof t.customizer.occasions])}
+                  {mode === "predesigned" 
+                    ? t.customizer.onEggs(12, selectedPrepack?.theme)
+                    : t.customizer.onEggs(pack.qty, t.customizer.occasions[occasion as keyof typeof t.customizer.occasions])}
                 </p>
               </div>
 
@@ -421,17 +504,17 @@ export default function Customizer() {
                 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontWeight: "bold" }}>
                     <span>{t.customizer.modal.pack}</span>
-                    <span>{t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} ({pack.qty} Eggs)</span>
+                    <span>{mode === "predesigned" ? selectedPrepack?.name : `${t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} (${pack.qty} Eggs)`}</span>
                   </div>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontWeight: "bold" }}>
                     <span>{t.customizer.modal.occ}</span>
-                    <span>{t.customizer.occasions[occasion as keyof typeof t.customizer.occasions]}</span>
+                    <span>{mode === "predesigned" ? selectedPrepack?.theme : t.customizer.occasions[occasion as keyof typeof t.customizer.occasions]}</span>
                   </div>
                   <div style={{ marginBottom: "8px", fontWeight: "bold" }}>
                     <span>{t.customizer.modal.faces}</span>
                     <div style={{ display: "flex", gap: "4px", flexWrap: "wrap", marginTop: "4px" }}>
-                      {selectedFaces.map(id => (
-                        <span key={id} style={{ background: "white", padding: "2px 8px", borderRadius: "8px", fontSize: "0.75rem", border: "1px solid #e5e7eb" }}>
+                      {(mode === "predesigned" ? selectedPrepack?.emojis : selectedFaces)?.map((id: string, idx: number) => (
+                        <span key={idx} style={{ background: "white", padding: "2px 8px", borderRadius: "8px", fontSize: "0.75rem", border: "1px solid #e5e7eb" }}>
                           {FACES[id]?.label || id}
                         </span>
                       ))}

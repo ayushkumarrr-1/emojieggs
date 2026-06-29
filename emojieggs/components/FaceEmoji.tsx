@@ -405,7 +405,17 @@ interface FaceProps {
 
 export function FaceIcon({ faceId, size = 40, className = "", style = {} }: FaceProps) {
   const face = FACES[faceId];
-  if (!face) return null;
+  if (!face) {
+    return (
+      <div 
+        style={{ fontSize: size * 0.7, width: size, height: size, display: 'flex', alignItems: 'center', justifyContent: 'center', ...style }} 
+        className={className}
+        title={faceId}
+      >
+        {faceId}
+      </div>
+    );
+  }
   return (
     <svg
       viewBox="0 0 100 100"
@@ -419,7 +429,7 @@ export function FaceIcon({ faceId, size = 40, className = "", style = {} }: Face
   );
 }
 
-// Face printed ON the egg — overlaid as SVG
+// Face printed ON the egg — overlaid as SVG or text
 interface EggFaceProps {
   faceId: string;
   eggWidth: number;
@@ -455,8 +465,8 @@ export function EggWithFace({ faceId, eggWidth, eggHeight }: EggFaceProps) {
         pointerEvents: "none",
         zIndex: 3,
       }}/>
-      {/* B&W face SVG */}
-      {face && (
+      {/* B&W face SVG or text */}
+      {face ? (
         <svg
           viewBox="0 0 100 100"
           width={faceSize}
@@ -472,6 +482,18 @@ export function EggWithFace({ faceId, eggWidth, eggHeight }: EggFaceProps) {
           xmlns="http://www.w3.org/2000/svg"
           dangerouslySetInnerHTML={{ __html: face.svg }}
         />
+      ) : (
+        <div style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          zIndex: 2,
+          fontSize: faceSize * 0.8,
+          filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.15))",
+        }}>
+          {faceId}
+        </div>
       )}
     </div>
   );
