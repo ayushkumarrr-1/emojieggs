@@ -2,9 +2,9 @@
 import { useState, useRef, useEffect } from "react";
 
 // All faces: black & white, only eyes + mouth, drawn as SVG
-export const FACES: Record<string, { svg: string; label: string }> = {
+export const FACES: Record<string, { svg: string; label: string; emoji?: string }> = {
   teary_smile: {
-    label: "Teary Smile",
+    label: "Teary Smile", emoji: "🥹",
     svg: `
       <path d="M23 30 Q32 22 41 25" stroke="black" stroke-width="3" fill="none" stroke-linecap="round"/>
       <path d="M77 30 Q68 22 59 25" stroke="black" stroke-width="3" fill="none" stroke-linecap="round"/>
@@ -19,7 +19,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M67 48 Q71 56 67 64" stroke="black" stroke-width="3.5" fill="none" stroke-linecap="round"/>`,
   },
   love_hearts: {
-    label: "Lots of Love",
+    label: "Lots of Love", emoji: "🥰",
     svg: `
       <path d="M22 30 Q22 22 29 22 Q33 22 36 26 Q39 22 43 22 Q50 22 50 30 Q50 37 36 47 Q22 37 22 30Z" fill="black"/>
       <path d="M50 30 Q50 22 57 22 Q61 22 64 26 Q67 22 71 22 Q78 22 78 30 Q78 37 64 47 Q50 37 50 30Z" fill="black"/>
@@ -27,28 +27,28 @@ export const FACES: Record<string, { svg: string; label: string }> = {
   },
 
   happy: {
-    label: "Happy",
+    label: "Happy", emoji: "😊",
     svg: `
       <circle cx="35" cy="42" r="7" fill="black"/>
       <circle cx="65" cy="42" r="7" fill="black"/>
       <path d="M30 60 Q50 78 70 60" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
   },
   laugh: {
-    label: "Laughing",
+    label: "Laughing", emoji: "😄",
     svg: `
       <path d="M28 38 Q35 32 42 38" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>
       <path d="M58 38 Q65 32 72 38" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>
       <path d="M28 60 Q50 82 72 60" stroke="black" stroke-width="4.5" fill="black" stroke-linecap="round"/>`,
   },
   sad: {
-    label: "Sad",
+    label: "Sad", emoji: "😔",
     svg: `
       <circle cx="35" cy="42" r="7" fill="black"/>
       <circle cx="65" cy="42" r="7" fill="black"/>
       <path d="M30 70 Q50 55 70 70" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
   },
   cry: {
-    label: "Crying",
+    label: "Crying", emoji: "😢",
     svg: `
       <circle cx="35" cy="40" r="7" fill="black"/>
       <circle cx="65" cy="40" r="7" fill="black"/>
@@ -57,35 +57,35 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M67 46 Q71 54 67 62" stroke="black" stroke-width="3.5" fill="none" stroke-linecap="round"/>`,
   },
   wink: {
-    label: "Wink",
+    label: "Wink", emoji: "😉",
     svg: `
       <circle cx="35" cy="42" r="7" fill="black"/>
       <path d="M58 38 Q65 44 72 38" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>
       <path d="M30 60 Q50 78 70 60" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
   },
   love: {
-    label: "In Love",
+    label: "In Love", emoji: "😍",
     svg: `
       <path d="M28 35 Q28 27 35 27 Q39 27 42 31 Q45 27 49 27 Q56 27 56 35 Q56 42 42 52 Q28 42 28 35Z" fill="black"/>
       <path d="M56 35 Q56 27 63 27 Q67 27 70 31 Q73 27 77 27 Q84 27 84 35 Q84 42 70 52 Q56 42 56 35Z" fill="black"/>
       <path d="M30 64 Q50 78 70 64" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
   },
   surprised: {
-    label: "Surprised",
+    label: "Surprised", emoji: "😮",
     svg: `
       <circle cx="35" cy="40" r="10" fill="none" stroke="black" stroke-width="4"/>
       <circle cx="65" cy="40" r="10" fill="none" stroke="black" stroke-width="4"/>
       <ellipse cx="50" cy="66" rx="12" ry="14" fill="none" stroke="black" stroke-width="4"/>`,
   },
   sleepy: {
-    label: "Sleepy",
+    label: "Sleepy", emoji: "😪",
     svg: `
       <path d="M26 42 Q35 36 44 42" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>
       <path d="M56 42 Q65 36 74 42" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>
       <path d="M35 63 Q50 71 65 63" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>`,
   },
   angry: {
-    label: "Angry",
+    label: "Angry", emoji: "😠",
     svg: `
       <path d="M26 36 Q35 44 44 36" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>
       <path d="M56 36 Q65 44 74 36" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>
@@ -94,7 +94,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M32 68 Q50 58 68 68" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
   },
   cool: {
-    label: "Cool",
+    label: "Cool", emoji: "😎",
     svg: `
       <rect x="22" y="34" width="56" height="18" rx="9" fill="black"/>
       <rect x="24" y="36" width="22" height="14" rx="7" fill="white"/>
@@ -104,21 +104,21 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M33 63 Q50 75 67 63" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
   },
   nervous: {
-    label: "Nervous",
+    label: "Nervous", emoji: "😬",
     svg: `
       <circle cx="35" cy="40" r="7" fill="black"/>
       <circle cx="65" cy="40" r="7" fill="black"/>
       <path d="M32 64 Q38 58 44 64 Q50 70 56 64 Q62 58 68 64" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>`,
   },
   smirk: {
-    label: "Smirk",
+    label: "Smirk", emoji: "😏",
     svg: `
       <circle cx="35" cy="42" r="7" fill="black"/>
       <circle cx="65" cy="42" r="7" fill="black"/>
       <path d="M35 63 Q50 58 65 68" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
   },
   shocked: {
-    label: "Shocked",
+    label: "Shocked", emoji: "😱",
     svg: `
       <path d="M26 34 Q35 28 44 34" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>
       <path d="M56 34 Q65 28 74 34" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>
@@ -134,7 +134,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <ellipse cx="50" cy="65" rx="14" ry="11" fill="black" stroke="black" stroke-width="2"/>`,
   },
   determined: {
-    label: "Determined",
+    label: "Determined", emoji: "😤",
     svg: `
       <path d="M26 38 L44 42" stroke="black" stroke-width="4.5" stroke-linecap="round"/>
       <path d="M56 42 L74 38" stroke="black" stroke-width="4.5" stroke-linecap="round"/>
@@ -143,7 +143,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M33 63 L67 63" stroke="black" stroke-width="4.5" stroke-linecap="round"/>`,
   },
   bored: {
-    label: "Bored",
+    label: "Bored", emoji: "😑",
     svg: `
       <path d="M28 42 L44 42" stroke="black" stroke-width="4.5" stroke-linecap="round"/>
       <path d="M56 42 L72 42" stroke="black" stroke-width="4.5" stroke-linecap="round"/>
@@ -151,7 +151,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
   },
   // New faces for occasion-specific contexts
   exhausted: {
-    label: "Exhausted",
+    label: "Exhausted", emoji: "😫",
     svg: `
       <path d="M26 40 Q35 46 44 40" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>
       <path d="M56 40 Q65 46 74 40" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>
@@ -161,7 +161,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M80 30 L84 26" stroke="black" stroke-width="3.5" stroke-linecap="round"/>`,
   },
   dead_inside: {
-    label: "Dead Inside",
+    label: "Dead Inside", emoji: "💀",
     svg: `
       <path d="M28 36 L42 48" stroke="black" stroke-width="4" stroke-linecap="round"/>
       <path d="M42 36 L28 48" stroke="black" stroke-width="4" stroke-linecap="round"/>
@@ -170,7 +170,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M33 66 Q50 66 67 66" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>`,
   },
   tongue_out: {
-    label: "Tongue Out",
+    label: "Tongue Out", emoji: "😛",
     svg: `
       <circle cx="35" cy="40" r="7" fill="black"/>
       <circle cx="65" cy="40" r="7" fill="black"/>
@@ -178,7 +178,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <ellipse cx="50" cy="72" rx="8" ry="6" fill="black" stroke="black" stroke-width="2"/>`,
   },
   nerd: {
-    label: "Nerd",
+    label: "Nerd", emoji: "🤓",
     svg: `
       <circle cx="35" cy="40" r="12" fill="none" stroke="black" stroke-width="3.5"/>
       <circle cx="65" cy="40" r="12" fill="none" stroke="black" stroke-width="3.5"/>
@@ -205,7 +205,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M62 66 Q64 78 60 82" stroke="black" stroke-width="3.5" fill="none" stroke-linecap="round"/>`,
   },
   flex: {
-    label: "Flexing",
+    label: "Flexing", emoji: "💪",
     svg: `
       <path d="M26 38 L44 34" stroke="black" stroke-width="4.5" stroke-linecap="round"/>
       <path d="M56 34 L74 38" stroke="black" stroke-width="4.5" stroke-linecap="round"/>
@@ -214,7 +214,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M30 60 Q50 78 70 60" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
   },
   rofl: {
-    label: "ROFL",
+    label: "ROFL", emoji: "🤣",
     svg: `
       <path d="M26 36 Q35 30 44 36" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>
       <path d="M56 36 Q65 30 72 36" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>
@@ -223,21 +223,21 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M67 46 Q71 50 67 54" stroke="black" stroke-width="2" fill="none" stroke-linecap="round"/>`,
   },
   kiss: {
-    label: "Kissing",
+    label: "Kissing", emoji: "😘",
     svg: `
       <circle cx="35" cy="40" r="7" fill="black"/>
       <circle cx="65" cy="40" r="7" fill="black"/>
       <circle cx="50" cy="65" r="9" fill="none" stroke="black" stroke-width="4"/>`,
   },
   star_eyes: {
-    label: "Star Eyes",
+    label: "Star Eyes", emoji: "🤩",
     svg: `
       <polygon points="35,30 37,38 45,38 39,43 41,51 35,47 29,51 31,43 25,38 33,38" fill="black"/>
       <polygon points="65,30 67,38 75,38 69,43 71,51 65,47 59,51 61,43 55,38 63,38" fill="black"/>
       <path d="M30 64 Q50 78 70 64" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
   },
   pleading: {
-    label: "Pleading",
+    label: "Pleading", emoji: "🥺",
     svg: `
       <path d="M23 26 Q32 18 41 21" stroke="black" stroke-width="3" fill="none" stroke-linecap="round"/>
       <path d="M77 26 Q68 18 59 21" stroke="black" stroke-width="3" fill="none" stroke-linecap="round"/>
@@ -250,7 +250,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M38 66 Q50 72 62 66" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>`,
   },
   mischievous: {
-    label: "Mischievous",
+    label: "Mischievous", emoji: "😈",
     svg: `
       <path d="M26 38 L44 42" stroke="black" stroke-width="4.5" stroke-linecap="round"/>
       <path d="M56 42 L74 38" stroke="black" stroke-width="4.5" stroke-linecap="round"/>
@@ -259,7 +259,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M30 60 Q50 74 70 60" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
   },
   mind_blown: {
-    label: "Mind Blown",
+    label: "Mind Blown", emoji: "🤯",
     svg: `
       <circle cx="35" cy="40" r="9" fill="none" stroke="black" stroke-width="4"/>
       <circle cx="65" cy="40" r="9" fill="none" stroke="black" stroke-width="4"/>
@@ -271,14 +271,14 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M70 22 L74 14" stroke="black" stroke-width="2" stroke-linecap="round"/>`,
   },
   dizzy: {
-    label: "Dizzy",
+    label: "Dizzy", emoji: "😵",
     svg: `
       <path d="M28 36 Q35 44 42 36 Q35 28 28 36" stroke="black" stroke-width="3.5" fill="none"/>
       <path d="M58 36 Q65 44 72 36 Q65 28 58 36" stroke="black" stroke-width="3.5" fill="none"/>
       <path d="M35 65 Q50 72 65 65" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>`,
   },
   zen: {
-    label: "Zen",
+    label: "Zen", emoji: "😌",
     svg: `
       <path d="M26 42 Q35 36 44 42" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>
       <path d="M56 42 Q65 36 74 42" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>
@@ -286,14 +286,14 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <circle cx="50" cy="24" r="4.5" fill="none" stroke="black" stroke-width="2"/>`,
   },
   proud: {
-    label: "Proud",
+    label: "Proud", emoji: "😤",
     svg: `
       <path d="M28 42 Q35 36 42 42" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>
       <path d="M58 42 Q65 36 72 42" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>
       <path d="M28 60 Q50 78 72 60" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
   },
   confused: {
-    label: "Confused",
+    label: "Confused", emoji: "😕",
     svg: `
       <circle cx="35" cy="42" r="7" fill="black"/>
       <circle cx="65" cy="42" r="7" fill="black"/>
@@ -302,7 +302,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M35 66 Q50 60 65 66" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>`,
   },
   grimace: {
-    label: "Grimace",
+    label: "Grimace", emoji: "😬",
     svg: `
       <circle cx="35" cy="40" r="7" fill="black"/>
       <circle cx="65" cy="40" r="7" fill="black"/>
@@ -312,7 +312,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <line x1="60" y1="58" x2="60" y2="72" stroke="black" stroke-width="2"/>`,
   },
   eye_roll: {
-    label: "Eye Roll",
+    label: "Eye Roll", emoji: "🙄",
     svg: `
       <circle cx="35" cy="40" r="9" fill="none" stroke="black" stroke-width="3.5"/>
       <circle cx="65" cy="40" r="9" fill="none" stroke="black" stroke-width="3.5"/>
@@ -330,14 +330,14 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <path d="M82 50 Q86 65 76 72" stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>`,
   },
   money_eyes: {
-    label: "Money Eyes",
+    label: "Money Eyes", emoji: "🤑",
     svg: `
       <text x="27" y="48" font-size="22" font-weight="bold" font-family="monospace" fill="black">$</text>
       <text x="57" y="48" font-size="22" font-weight="bold" font-family="monospace" fill="black">$</text>
       <path d="M30 64 Q50 78 70 64" stroke="black" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
   },
   silly: {
-    label: "Silly",
+    label: "Silly", emoji: "🤪",
     svg: `
       <circle cx="30" cy="40" r="8" fill="black"/>
       <circle cx="70" cy="36" r="8" fill="black"/>
@@ -354,7 +354,7 @@ export const FACES: Record<string, { svg: string; label: string }> = {
       <circle cx="76" cy="50" r="2.5" fill="black"/>`,
   },
   skeptical: {
-    label: "Skeptical",
+    label: "Skeptical", emoji: "🤨",
     svg: `
       <circle cx="35" cy="42" r="7" fill="black"/>
       <circle cx="65" cy="42" r="7" fill="black"/>

@@ -105,10 +105,10 @@ export default function Customizer() {
       orderDetails = [
         `Mode: Pre-Designed Pack`,
         `Pack: ${selectedPrepack?.name}`,
-        `Emojis: ${selectedPrepack?.emojis.join(' ')}`
+        `Emojis: ${selectedPrepack?.emojis.map((id: string) => FACES[id]?.emoji || FACES[id]?.label || id).join(' ')}`
       ];
     } else {
-      const facesText = selectedFaces.map(id => FACES[id]?.label || id).join(', ');
+      const facesText = selectedFaces.map(id => FACES[id]?.emoji || FACES[id]?.label || id).join(', ');
       orderDetails = [
         `Mode: Custom Pack`,
         `Pack: ${t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} (${pack.qty} Eggs)`,
@@ -140,7 +140,7 @@ export default function Customizer() {
             customerMessage: extras.includes("card") ? customerMessage : undefined,
             pack: mode === "predesigned" ? selectedPrepack?.name : `${t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} (${pack.qty} Eggs)`,
             occasion: mode === "predesigned" ? selectedPrepack?.theme : t.customizer.occasions[occasion as keyof typeof t.customizer.occasions],
-            faces: mode === "predesigned" ? selectedPrepack?.emojis.join(', ') : selectedFaces.map(id => FACES[id]?.label || id).join(', '),
+            faces: mode === "predesigned" ? selectedPrepack?.emojis.map((id: string) => FACES[id]?.emoji || FACES[id]?.label || id).join(', ') : selectedFaces.map(id => FACES[id]?.emoji || FACES[id]?.label || id).join(', '),
             addOns: addOnsText,
             total: `₹${total}`,
           })
@@ -522,7 +522,7 @@ export default function Customizer() {
                     <div style={{ display: "flex", gap: "4px", flexWrap: "wrap", marginTop: "4px" }}>
                       {(mode === "predesigned" ? selectedPrepack?.emojis : selectedFaces)?.map((id: string, idx: number) => (
                         <span key={idx} style={{ background: "white", padding: "2px 8px", borderRadius: "8px", fontSize: "0.75rem", border: "1px solid #e5e7eb" }}>
-                          {FACES[id]?.label || id}
+                          {FACES[id]?.emoji || FACES[id]?.label || id}
                         </span>
                       ))}
                     </div>
