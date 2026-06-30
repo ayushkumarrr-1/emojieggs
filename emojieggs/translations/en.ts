@@ -48,7 +48,7 @@ export const en = {
     title: "4 Steps to the World's Most Edible Greeting Card",
     steps: [
       { icon: "🎯", title: "Pick an Occasion", desc: "Birthday, Monday blues, anniversary, exam day — we have an occasion for every feeling." },
-      { icon: "laugh", title: "Choose Your Emoji", desc: "Browse 50+ emojis curated for that occasion. Mix and match across your dozen." },
+      { icon: "😂", title: "Choose Your Emoji", desc: "Browse 50+ emojis curated for that occasion. Mix and match across your dozen." },
       { icon: "🔢", title: "Set Your Quantity", desc: "Half dozen, full dozen, or a big party pack. We scale with you." },
       { icon: "🚀", title: "We Deliver Fresh", desc: "Printed and delivered same day. Every egg, a tiny mood booster." },
     ]
@@ -95,7 +95,7 @@ export const en = {
       thankYou: (name: string) => `Thank you, ${name}! Here are your order details.`,
       pack: "📦 Pack:",
       occ: "🎯 Occasion:",
-      faces: "laugh Faces:",
+      faces: "😂 Faces:",
       addons: "✨ Add-Ons:",
       total: "Total:",
       sendBtn: "Join the Waitlist",
@@ -118,7 +118,7 @@ export const en = {
       "party": "Party Time 🎊",
       "morning": "Good Morning ☀️",
       "health": "Fitness & Health 💪",
-      "funny": "Funny Vibes rofl",
+      "funny": "Funny Vibes 🤣",
       "employees": "Employees 💼"
     },
     packs: {
@@ -139,7 +139,7 @@ export const en = {
     preDesignedPacks: [
       {
         id: "sorry",
-        name: "pleading Sorry Pack",
+        name: "🥺 Sorry Pack",
         theme: "Apology & making up",
         emojis: ["pleading", "sad", "🙏", "❤️", "🤍", "cry", "🌹", "🫶", "💌", "blush", "🤝", "teary_smile"],
         tagline: "Because some apologies deserve more than words.",
@@ -163,7 +163,7 @@ export const en = {
       },
       {
         id: "missing",
-        name: "teary_smile Missing You Pack",
+        name: "🥲 Missing You Pack",
         theme: "Long-distance & nostalgia",
         emojis: ["teary_smile", "sad", "❤️", "🫂", "🌙", "💌", "kiss", "🤍", "✨", "pleading", "📱", "💖"],
         tagline: "Distance ends where emotions begin.",
@@ -215,8 +215,8 @@ export const en = {
     badge: "Real Stories",
     title: "Happy Customers, Happier Eggs 🥚",
     reviews: [
-      { name: "Priya S.", city: "Patna", emoji: "love_hearts", review: "Ordered birthday eggs for my son — he refused to eat them because they were too cute! 10/10", stars: 5 },
-      { name: "Rahul M.", city: "Ludhiana", emoji: "rofl", review: "The Monday Blues pack with the coffee emoji hit different. My whole office wants to order now.", stars: 5 },
+      { name: "Priya S.", city: "Patna", emoji: "🥰", review: "Ordered birthday eggs for my son — he refused to eat them because they were too cute! 10/10", stars: 5 },
+      { name: "Rahul M.", city: "Ludhiana", emoji: "🤣", review: "The Monday Blues pack with the coffee emoji hit different. My whole office wants to order now.", stars: 5 },
       { name: "Ananya K.", city: "Jalandhar", emoji: "❤️", review: "I ordered the 'Love & Romance' pack for my husband. He loved the rose emojis on the eggs so much, he framed one instead of eating it!", stars: 5 },
       { name: "Vikram J.", city: "Amritsar", emoji: "🎉", review: "Party pack for 48 people with different emojis — everyone was comparing eggs before eating. Genius idea!", stars: 5 },
     ]
