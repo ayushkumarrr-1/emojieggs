@@ -480,10 +480,11 @@ export function EggWithFace({ faceId, eggWidth, eggHeight, isWhite = false }: Eg
     setAutoRotate(false);
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
     const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    
     startX.current = clientX;
     startY.current = clientY;
   };
-
+  
   const handleMove = (e: MouseEvent | TouchEvent) => {
     if (!isDragging.current) return;
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
@@ -541,6 +542,13 @@ export function EggWithFace({ faceId, eggWidth, eggHeight, isWhite = false }: Eg
   const modalEggWidth = 220;
   const modalEggHeight = 275;
   const modalFaceSize = modalEggWidth * 0.7;
+
+  // Fake 3D math for the face
+  const normY = ((rotationY % 360) + 360) % 360;
+  const isFaceVisible = normY < 90 || normY > 270;
+  // Use 2.1 to keep it slightly inside the edge
+  const faceOffsetX = Math.sin(normY * Math.PI / 180) * (modalEggWidth / 2.1);
+  const faceScaleX = Math.abs(Math.cos(normY * Math.PI / 180));
 
   // Custom styling for golden vs white egg
   const eggBackground = isWhite
@@ -737,15 +745,15 @@ export function EggWithFace({ faceId, eggWidth, eggHeight, isWhite = false }: Eg
                 transform: "translateZ(-30px)",
               }} />
               
-              {/* 3D Rotating Container (wraps the egg front, back, gloss and face) */}
+              {/* 3D Rotating Container (tilts up/down with rotateX only) */}
               <div style={{
                 position: "absolute",
                 inset: 0,
-                transform: `rotateY(${rotationY}deg) rotateX(${rotationX}deg)`,
+                transform: \`rotateX(\${rotationX}deg)\`,
                 transformStyle: "preserve-3d",
                 transition: isDraggingState ? "none" : "transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
               }}>
-                {/* Front Base Egg Body */}
+                {/* Base Egg Body - Always facing camera to preserve width and look 3D */}
                 <div
                   style={{
                     position: "absolute",
@@ -753,8 +761,6 @@ export function EggWithFace({ faceId, eggWidth, eggHeight, isWhite = false }: Eg
                     background: "radial-gradient(ellipse at 35% 30%, #ffffff 0%, #faf9f5 25%, #eae5d7 60%, #d5cfbf 85%, #bebaa8 100%)",
                     borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
                     boxShadow: "inset -12px -18px 30px rgba(135,125,105,0.25), inset 8px 10px 15px rgba(255,255,255,1), 0 15px 35px rgba(0,0,0,0.15)",
-                    transformStyle: "preserve-3d",
-                    backfaceVisibility: "hidden",
                     zIndex: 2,
                   }}
                 />
@@ -770,17 +776,14 @@ export function EggWithFace({ faceId, eggWidth, eggHeight, isWhite = false }: Eg
                   transform: "rotate(-30deg) translateZ(8px)",
                   pointerEvents: "none",
                   zIndex: 4,
-                  backfaceVisibility: "hidden",
                 }}/>
 
-                {/* Spherical face mapping wrapper (front side) */}
+                {/* Spherical face mapping wrapper */}
                 <div style={{
                   position: "absolute",
                   inset: 0,
                   borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
                   overflow: "hidden",
-                  transformStyle: "preserve-3d",
-                  backfaceVisibility: "hidden",
                   zIndex: 3,
                 }}>
                   <div style={{
@@ -789,7 +792,9 @@ export function EggWithFace({ faceId, eggWidth, eggHeight, isWhite = false }: Eg
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    transform: "translateZ(12px)",
+                    opacity: isFaceVisible ? 1 : 0,
+                    transform: \`translateX(\${faceOffsetX}px) scaleX(\${faceScaleX})\`,
+                    transition: isDraggingState ? "none" : "all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
                   }}>
                     {face ? (
                       <svg
@@ -812,20 +817,6 @@ export function EggWithFace({ faceId, eggWidth, eggHeight, isWhite = false }: Eg
                     )}
                   </div>
                 </div>
-
-                {/* Back side of the egg shell (revealed when rotated 180 deg) */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "radial-gradient(ellipse at 35% 30%, #ffffff 0%, #faf9f5 25%, #eae5d7 60%, #d5cfbf 85%, #bebaa8 100%)",
-                    borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
-                    boxShadow: "inset 12px -18px 30px rgba(135,125,105,0.25), inset -8px 10px 15px rgba(255,255,255,1), 0 15px 35px rgba(0,0,0,0.15)",
-                    transform: "rotateY(180deg)",
-                    backfaceVisibility: "hidden",
-                    zIndex: 1,
-                  }}
-                />
               </div>
             </div>
 
