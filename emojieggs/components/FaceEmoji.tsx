@@ -749,7 +749,7 @@ export function EggWithFace({ faceId, eggWidth, eggHeight, isWhite = false }: Eg
               <div style={{
                 position: "absolute",
                 inset: 0,
-                transform: \`rotateX(\${rotationX}deg)\`,
+                transform: `rotateX(${rotationX}deg)`,
                 transformStyle: "preserve-3d",
                 transition: isDraggingState ? "none" : "transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
               }}>
@@ -793,7 +793,7 @@ export function EggWithFace({ faceId, eggWidth, eggHeight, isWhite = false }: Eg
                     alignItems: "center",
                     justifyContent: "center",
                     opacity: isFaceVisible ? 1 : 0,
-                    transform: \`translateX(\${faceOffsetX}px) scaleX(\${faceScaleX})\`,
+                    transform: `translateX(${faceOffsetX}px) scaleX(${faceScaleX})`,
                     transition: isDraggingState ? "none" : "all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
                   }}>
                     {face ? (
