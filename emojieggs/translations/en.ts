@@ -80,7 +80,7 @@ export const en = {
     step4: "Step 4: Add-Ons (Optional)",
     previewTitle: "🥚 Your Box Preview",
     previewDesc: (qty: number, faces: number) => `${qty} eggs · ${faces} face${faces > 1 ? "s" : ""} rotating`,
-    previewDisclaimer: "✨ Note: This is a computer-generated preview. The real product features thick, smooth vector-style lines optimized for food-safe ink printing on curved egg surfaces, ensuring every expression is highly memorable and emotionally engaging! 🥚🎁",
+    previewDisclaimer: "✨ Note: This is a computer-generated preview. The real product looks even more stunning! 🥚 Plus, lucky customers might find a mystery surprise inside their box! 🎁",
     priceTitle: "💰 Your Order Total",
     totalLabel: "Total",
     yourFaces: "YOUR FACES",
