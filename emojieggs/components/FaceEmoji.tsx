@@ -421,6 +421,20 @@ export const OCCASION_FACES: Record<string, string[]> = {
   ],
 };
 
+export const EMOJI_DESCRIPTIONS: Record<string, string> = {
+  "🏋️‍♂️": "Day 1: Chest Day – Heavy bench press ki vibe.",
+  "🧱": "Day 1: Chest Day – Solid, pathar jaisi chhati.",
+  "🦅": "Day 2: Back Day – Wings aur wide lat pulldowns ke liye.",
+  "🛶": "Day 2: Back Day – Barbell aur cable rows ka perfect action.",
+  "🦖": "Day 3: Leg Day – Monster quads aur quad-zilla legs.",
+  "🦘": "Day 3: Leg Day – Explosive leg power aur calves.",
+  "🏔️": "Day 4: Shoulder Day – Pahad jaise broad shoulders.",
+  "🏹": "Day 4: Shoulder Day – Rear delts ke tension aur pull ko dikhane ke liye.",
+  "🦀": "Day 5: Arms Day – Front double bicep flex pose.",
+  "🦏": "Day 5: Arms Day – Thick aur powerful triceps.",
+  "🍫": "Day 6: Abs & Cardio – Ek dum shredded 6-pack abs.",
+  "🌪️": "Day 6: Abs & Cardio – High-intensity fat-burning cardio.",
+};
 
 interface FaceProps {
   faceId: string;
@@ -818,6 +832,18 @@ export function EggWithFace({ faceId, eggWidth, eggHeight, isWhite = false }: Eg
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* Description Text */}
+            <div style={{ marginTop: "24px", textAlign: "center", padding: "0 10px" }}>
+              <p style={{
+                fontSize: "1rem",
+                fontWeight: "bold",
+                color: "#1A1A2E",
+                margin: 0,
+              }}>
+                {EMOJI_DESCRIPTIONS[faceId] || (face ? face.label : "Custom Emoji")}
+              </p>
             </div>
 
             {/* Action Buttons */}
