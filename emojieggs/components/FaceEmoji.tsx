@@ -434,7 +434,7 @@ export function FaceIcon({ faceId, size = 40, className = "", style = {} }: Face
   if (!face) {
     return (
       <div 
-        style={{ fontSize: size * 0.7, width: size, height: size, display: 'flex', alignItems: 'center', justifyContent: 'center', ...style }} 
+        style={{ fontSize: size * 0.7, width: size, height: size, display: 'flex', alignItems: 'center', justifyContent: 'center', filter: 'grayscale(100%) contrast(1.5) brightness(0.8)', ...style }} 
         className={className}
         title={faceId}
       >
@@ -635,7 +635,7 @@ export function EggWithFace({ faceId, eggWidth, eggHeight, isWhite = false }: Eg
             transform: "translate(-50%, -50%)",
             zIndex: 2,
             fontSize: faceSize * 0.8,
-            filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.15)) grayscale(100%) contrast(1.2) brightness(0.9)",
+            filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.15)) grayscale(100%) contrast(1.5) brightness(0.8)",
           }}>
             {faceId}
           </div>

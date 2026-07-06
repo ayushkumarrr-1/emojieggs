@@ -208,6 +208,14 @@ export const en = {
         emojis: ["🌙", "teary_smile", "💭", "❤️", "📱", "💌", "🫂", "🤍", "kiss", "✨", "blush", "love_hearts"],
         tagline: "Instead of random emojis, every egg continues the story.",
         price: 159,
+      },
+      {
+        id: "fitness",
+        name: "💪 Fitness Lineup",
+        theme: "Gym & Workout Motivation",
+        emojis: ["🏋️‍♂️", "🧱", "🦅", "🛶", "🦖", "🦘", "🏔️", "🏹", "🦀", "🦏", "🍫", "🌪️"],
+        tagline: "Fuel your gains with the ultimate fitness 12-pack.",
+        price: 129,
       }
     ]
   },
