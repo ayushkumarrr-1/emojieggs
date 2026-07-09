@@ -230,7 +230,7 @@ export const en = {
     ]
   },
   footer: {
-    brand: "EmojiEggs 🥚",
+    brand: "FaciEggs 🥚",
     tagline: "We Value Your Happiness",
     desc: "India's first emoji-printed egg delivery service. Fresh eggs, big smiles, delivered to your door.",
     quickLinks: "Quick Links",
@@ -239,7 +239,7 @@ export const en = {
     phone: "📞 Phone number: +91 96995 56858",
     time: "⏰ 6 AM – 10 PM Daily",
     delivery: "🚚 Delivery across India",
-    rights: "© 2026 EmojiEggs. All rights reserved. 🥚",
+    rights: "© 2026 FaciEggs. All rights reserved. 🥚",
     madeWith: "Made with ❤️ & a lot of eggs"
   }
 };

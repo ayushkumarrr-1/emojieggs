@@ -204,11 +204,11 @@ export default function MoodPredictor() {
       <nav className="mood-nav">
         <Link href="/" className="mood-back-link">
           <span style={{ fontSize: "1.2rem" }}>←</span>
-          <span>Back to EmojiEggs</span>
+          <span>Back to FaciEggs</span>
         </Link>
         <div className="mood-nav-brand">
           <span className="font-display" style={{ color: "#FFB800", fontSize: "1.1rem" }}>
-            EmojiEggs
+            FaciEggs
           </span>
           <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.7rem", fontWeight: 700 }}>
             MOOD PREDICTOR

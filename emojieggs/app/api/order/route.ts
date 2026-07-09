@@ -46,7 +46,7 @@ function buildHtmlEmail(data: OrderPayload): string {
           <tr>
             <td style="background:linear-gradient(135deg,#1A1A2E,#2D2D44);padding:32px 32px 24px;text-align:center;">
               <div style="font-size:48px;margin-bottom:8px;">🥚</div>
-              <h1 style="margin:0;color:#FFB800;font-size:24px;font-weight:800;letter-spacing:-0.5px;">New EmojiEggs Order!</h1>
+              <h1 style="margin:0;color:#FFB800;font-size:24px;font-weight:800;letter-spacing:-0.5px;">New FaciEggs Order!</h1>
               <p style="margin:6px 0 0;color:rgba(255,255,255,0.6);font-size:13px;font-weight:600;">A fresh order just came in 🎉</p>
             </td>
           </tr>
@@ -130,7 +130,7 @@ function buildHtmlEmail(data: OrderPayload): string {
           <!-- Footer -->
           <tr>
             <td style="padding:24px 32px 32px;text-align:center;">
-              <p style="margin:0;font-size:12px;color:#bbb;font-weight:600;">This is an automated notification from EmojiEggs 🥚</p>
+              <p style="margin:0;font-size:12px;color:#bbb;font-weight:600;">This is an automated notification from FaciEggs 🥚</p>
               <p style="margin:4px 0 0;font-size:11px;color:#ddd;">Please contact the customer to confirm delivery.</p>
             </td>
           </tr>
@@ -181,7 +181,7 @@ export async function POST(request: Request) {
     const htmlContent = buildHtmlEmail(data);
 
     const mailOptions = {
-      from: `"EmojiEggs 🥚" <${fromAddress}>`,
+      from: `"FaciEggs 🥚" <${fromAddress}>`,
       to,
       subject,
       text: body, // plain text fallback

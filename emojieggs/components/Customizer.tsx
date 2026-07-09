@@ -97,7 +97,7 @@ export default function Customizer() {
     }
     
     setOrderSending(true);
-    const subject = `🥚 New EmojiEggs Order from ${customerName}`;
+    const subject = `🥚 New FaciEggs Order from ${customerName}`;
     const addOnsText = extras.length > 0 ? extras.map(id => t.customizer.extras[id as keyof typeof t.customizer.extras]).join(', ') : 'None';
     
     let orderDetails = [];

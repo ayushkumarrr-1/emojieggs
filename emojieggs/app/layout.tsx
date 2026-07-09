@@ -3,7 +3,7 @@ import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata: Metadata = {
-  title: "EmojiEggs – We Value Your Happiness 🥚",
+  title: "FaciEggs – We Value Your Happiness 🥚",
   description: "Customise your eggs with emojis for every emotion and occasion. Fresh eggs, happy vibes!",
 };
 
