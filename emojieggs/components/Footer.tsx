@@ -32,9 +32,15 @@ export default function Footer() {
 
           <div>
             <h4 className="font-display text-lg mb-4" style={{ color: "#FFB800" }}>{t.footer.quickLinks}</h4>
-            {[t.nav.home, t.nav.howItWorks, t.nav.occasions, t.nav.orderNow, "About Us"].map((l) => (
-              <a key={l} href="#" className="block text-sm font-semibold mb-2 hover:text-yellow-400 transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>
-                {l}
+            {[
+              { label: t.nav.home, href: "#home" },
+              { label: t.nav.howItWorks, href: "#how-it-works" },
+              { label: t.nav.occasions, href: "#occasions" },
+              { label: t.nav.orderNow, href: "#order" },
+              { label: "Smile Fund", href: "#smile-fund" }
+            ].map((link) => (
+              <a key={link.label} href={link.href} className="block text-sm font-semibold mb-2 hover:text-yellow-400 transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>
+                {link.label}
               </a>
             ))}
           </div>
