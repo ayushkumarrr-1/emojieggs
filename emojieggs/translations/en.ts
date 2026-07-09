@@ -239,8 +239,7 @@ export const en = {
     medDesc: "Donating essential and basic medicines to those who cannot afford proper healthcare.",
     studyTitle: "Study Materials",
     studyDesc: "Providing study materials for children who cannot afford to go to school or buy materials.",
-    quote: "\"So every citizen of India has the right to smile.\"",
-    cta: "Order our FaciEggs so every citizen has their right to smile."
+    quote: "\"So every citizen of India has the right to smile.\""
   },
   footer: {
     brand: "FaciEggs 🥚",

@@ -73,9 +73,6 @@ export default function SmileFund() {
           <p className="font-display text-2xl md:text-3xl mb-4 text-gray-800 leading-tight">
             {t.smileFund.quote}
           </p>
-          <p className="font-medium text-lg text-gray-700 mt-2 mb-4 leading-relaxed">
-            {t.smileFund.cta}
-          </p>
           <div className="mt-6 text-4xl animate-bounce">🇮🇳 😊</div>
         </div>
       </div>
