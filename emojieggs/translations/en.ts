@@ -229,6 +229,19 @@ export const en = {
       { name: "Vikram J.", city: "Amritsar", emoji: "🎉", review: "Party pack for 48 people with different emojis — everyone was comparing eggs before eating. Genius idea!", stars: 5 },
     ]
   },
+  smileFund: {
+    badge: "Social Cause",
+    title: "FaciEggs Smile Fund",
+    desc1: "See how your orders help people in need. We pledge ",
+    descHighlight: "10% of our profits",
+    desc2: " towards making a real difference.",
+    medTitle: "Basic Medicines",
+    medDesc: "Donating essential and basic medicines to those who cannot afford proper healthcare.",
+    studyTitle: "Study Materials",
+    studyDesc: "Providing study materials for children who cannot afford to go to school or buy materials.",
+    quote: "\"So every citizen of India has the right to smile.\"",
+    cta: "Order our FaciEggs so every citizen has their right to smile."
+  },
   footer: {
     brand: "FaciEggs 🥚",
     tagline: "We Value Your Happiness",
