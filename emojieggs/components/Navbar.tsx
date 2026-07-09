@@ -51,6 +51,7 @@ export default function Navbar() {
           <a href="#home" className="font-semibold text-sm transition-colors hover:text-yellow-500" style={{ color: "#1A1A2E" }}>{t.nav.home}</a>
           <a href="#how-it-works" className="font-semibold text-sm transition-colors hover:text-yellow-500" style={{ color: "#1A1A2E" }}>{t.nav.howItWorks}</a>
           <a href="#occasions" className="font-semibold text-sm transition-colors hover:text-yellow-500" style={{ color: "#1A1A2E" }}>{t.nav.occasions}</a>
+          <a href="#smile-fund" className="font-semibold text-sm transition-colors hover:text-yellow-500" style={{ color: "#1A1A2E" }}>Smile Fund</a>
         </div>
 
         {/* Desktop right actions */}
@@ -126,6 +127,7 @@ export default function Navbar() {
           <a href="#home" onClick={() => setMenuOpen(false)} className="font-semibold text-sm py-2 px-3 rounded-xl transition-colors hover:bg-yellow-50" style={{ color: "#1A1A2E" }}>{t.nav.home}</a>
           <a href="#how-it-works" onClick={() => setMenuOpen(false)} className="font-semibold text-sm py-2 px-3 rounded-xl transition-colors hover:bg-yellow-50" style={{ color: "#1A1A2E" }}>{t.nav.howItWorks}</a>
           <a href="#occasions" onClick={() => setMenuOpen(false)} className="font-semibold text-sm py-2 px-3 rounded-xl transition-colors hover:bg-yellow-50" style={{ color: "#1A1A2E" }}>{t.nav.occasions}</a>
+          <a href="#smile-fund" onClick={() => setMenuOpen(false)} className="font-semibold text-sm py-2 px-3 rounded-xl transition-colors hover:bg-yellow-50" style={{ color: "#1A1A2E" }}>Smile Fund</a>
           <div className="flex gap-3 mt-1">
             <Link
               href="/mood-predictor"
