@@ -17,14 +17,21 @@ export default function Footer() {
               {t.footer.desc}
             </p>
             <div className="flex gap-4 mt-6">
-              {["📸", "📘", "🐦", "📱"].map((icon, i) => (
+              {[
+                { icon: "📸", href: "https://instagram.com/facieggs" },
+                { icon: "📘", href: "#" },
+                { icon: "🐦", href: "#" },
+                { icon: "📱", href: "#" }
+              ].map((item, i) => (
                 <a
                   key={i}
-                  href="#"
+                  href={item.href}
+                  target={item.href !== "#" ? "_blank" : undefined}
+                  rel={item.href !== "#" ? "noopener noreferrer" : undefined}
                   className="w-10 h-10 rounded-full flex items-center justify-center text-lg transition-all hover:scale-110"
                   style={{ background: "rgba(255,255,255,0.1)" }}
                 >
-                  {icon}
+                  {item.icon}
                 </a>
               ))}
             </div>
