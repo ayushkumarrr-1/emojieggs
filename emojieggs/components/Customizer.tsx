@@ -104,7 +104,7 @@ export default function Customizer() {
       orderDetails = [
         `Mode: Pre-Designed Pack`,
         `Pack: ${selectedPrepack?.name}`,
-        `Emojis: ${selectedPrepack?.emojis.map((id: string) => FACES[id]?.emoji || FACES[id]?.label || id).join(' ')}`
+        `Emojis: ${selectedPrepack?.emojis?.map((id: string) => FACES[id]?.emoji || FACES[id]?.label || id).join(' ')}`
       ];
     } else {
       const facesText = selectedFaces.map(id => FACES[id]?.emoji || FACES[id]?.label || id).join(', ');
@@ -139,7 +139,7 @@ export default function Customizer() {
             customerMessage: extras.includes("card") ? customerMessage : undefined,
             pack: mode === "predesigned" ? selectedPrepack?.name : `${t.customizer.packs[pack.id as keyof typeof t.customizer.packs]} (${pack.qty} Eggs)`,
             occasion: mode === "predesigned" ? selectedPrepack?.theme : t.customizer.occasions[occasion as keyof typeof t.customizer.occasions],
-            faces: mode === "predesigned" ? selectedPrepack?.emojis.map((id: string) => FACES[id]?.emoji || FACES[id]?.label || id).join(', ') : selectedFaces.map(id => FACES[id]?.emoji || FACES[id]?.label || id).join(', '),
+            faces: mode === "predesigned" ? selectedPrepack?.emojis?.map((id: string) => FACES[id]?.emoji || FACES[id]?.label || id).join(', ') : selectedFaces.map(id => FACES[id]?.emoji || FACES[id]?.label || id).join(', '),
             addOns: addOnsText,
             total: `₹${total}`,
           })

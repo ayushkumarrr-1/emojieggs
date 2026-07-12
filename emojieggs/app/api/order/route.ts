@@ -180,9 +180,10 @@ export async function POST(request: Request) {
     const fromAddress = emailUser || (testAccount ? testAccount.user : undefined);
     const htmlContent = buildHtmlEmail(data);
 
+    const adminEmail = process.env.EMAIL_USER || 'dinathayush@gmail.com';
     const mailOptions = {
       from: `"FaciEggs 🥚" <${fromAddress}>`,
-      to,
+      to: adminEmail,
       subject,
       text: body, // plain text fallback
       html: htmlContent,
