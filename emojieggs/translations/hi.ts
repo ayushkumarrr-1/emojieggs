@@ -124,8 +124,7 @@ export const hi = {
     packs: {
       "Half Dozen": "आधा दर्जन",
       "Full Dozen": "पूरा दर्जन",
-      "Double Dozen": "डबल दर्जन",
-      "Party Pack": "पार्टी पैक"
+      "Double Dozen": "डबल दर्जन"
     },
     extras: {
       "box": "🎁 गिफ़्ट बॉक्स",

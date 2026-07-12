@@ -124,8 +124,7 @@ export const en = {
     packs: {
       "Half Dozen": "Half Dozen",
       "Full Dozen": "Full Dozen",
-      "Double Dozen": "Double Dozen",
-      "Party Pack": "Party Pack"
+      "Double Dozen": "Double Dozen"
     },
     extras: {
       "box": "🎁 Gift Box",
