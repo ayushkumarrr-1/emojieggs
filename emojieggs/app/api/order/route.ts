@@ -151,33 +151,20 @@ export async function POST(request: Request) {
     const emailUser = process.env.EMAIL_USER;
     const emailPass = process.env.EMAIL_PASS;
 
-    let transporter;
-    let testAccount;
-
-    if (emailUser && emailPass) {
-      // Use explicit SMTP configuration for Gmail to ensure reliability in serverless environments
-      transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: { user: emailUser, pass: emailPass },
-      });
-    } else {
-      // Fallback to Ethereal test account for development
-      testAccount = await nodemailer.createTestAccount();
-      transporter = nodemailer.createTransport({
-        host: testAccount.smtp.host,
-        port: testAccount.smtp.port,
-        secure: testAccount.smtp.secure,
-        auth: {
-          user: testAccount.user,
-          pass: testAccount.pass,
-        },
-      });
+    if (!emailUser || !emailPass) {
+      throw new Error('EMAIL_USER or EMAIL_PASS environment variables are not set.');
     }
 
+    // Use explicit SMTP configuration for Gmail to ensure reliability in serverless environments
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: { user: emailUser, pass: emailPass },
+    });
+
     // Determine sender address based on available credentials
-    const fromAddress = emailUser || (testAccount ? testAccount.user : undefined);
+    const fromAddress = emailUser;
     const htmlContent = buildHtmlEmail(data);
 
     const adminEmail = process.env.EMAIL_USER || 'dinathayush@gmail.com';
@@ -191,11 +178,7 @@ export async function POST(request: Request) {
 
     const info = await transporter.sendMail(mailOptions);
 
-    // Log preview URL when using the test account
-    if (!emailUser) {
-      const previewUrl = nodemailer.getTestMessageUrl(info);
-      console.log('Preview URL:', previewUrl);
-    }
+    console.log('Message sent: %s', info.messageId);
 
     return NextResponse.json({ success: true });
   } catch (error) {
