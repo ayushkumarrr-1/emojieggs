@@ -100,6 +100,7 @@ export const en = {
       total: "Total:",
       sendBtn: "Join the Waitlist",
       sendingBtn: "Sending...",
+      joinedBtn: "Joined",
       closeBtn: "Close",
       enterDetails: "Enter Your Details",
       name: "Name",

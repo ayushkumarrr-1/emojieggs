@@ -536,8 +536,8 @@ export default function Customizer() {
                     <span>₹{total}</span>
                   </div>
                 </div>
-                <button onClick={handleSendOrder} disabled={orderSending} className="w-full font-display text-lg py-4 rounded-2xl mb-2" style={{ background: orderSending ? '#aaa' : "linear-gradient(135deg, #FF6B6B, #FFB800)", color: "white", boxShadow: "0 6px 20px rgba(255,184,0,0.35)" }}>{orderSending ? t.customizer.modal.sendingBtn : t.customizer.modal.sendBtn}</button>
-                <button onClick={() => setShowFormModal(false)} className="w-full font-display text-lg py-4 rounded-2xl" style={{ background: "linear-gradient(135deg, #FFB800, #FF6B6B)", color: "white", boxShadow: "0 6px 20px rgba(255,184,0,0.35)" }}>{t.customizer.modal.closeBtn}</button>
+                <button onClick={handleSendOrder} disabled={orderSending || orderSent} className="w-full font-display text-lg py-4 rounded-2xl mb-2" style={{ background: (orderSending || orderSent) ? '#aaa' : "linear-gradient(135deg, #FF6B6B, #FFB800)", color: "white", boxShadow: "0 6px 20px rgba(255,184,0,0.35)" }}>{orderSending ? t.customizer.modal.sendingBtn : (orderSent ? t.customizer.modal.joinedBtn : t.customizer.modal.sendBtn)}</button>
+                <button onClick={() => { setShowFormModal(false); setOrderSent(false); setOrderConfirmed(false); }} className="w-full font-display text-lg py-4 rounded-2xl" style={{ background: "linear-gradient(135deg, #FFB800, #FF6B6B)", color: "white", boxShadow: "0 6px 20px rgba(255,184,0,0.35)" }}>{t.customizer.modal.closeBtn}</button>
               </>
             ) : (
               <>
@@ -570,32 +570,6 @@ export default function Customizer() {
                 </button>
               </>
             )}
-          </div>
-        </div>
-      )}
-      {orderSent && (
-        <div style={{
-          position: "fixed",
-          inset: 0,
-          background: "rgba(0, 0, 0, 0.6)",
-          backdropFilter: "blur(8px)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 10000,
-        }}>
-          <div style={{
-            background: "white",
-            borderRadius: "28px",
-            padding: "32px",
-            maxWidth: "480px",
-            width: "90%",
-            boxShadow: "0 20px 50px rgba(0, 0, 0, 0.15)",
-            textAlign: "center",
-          }}>
-            <h3 className="font-display text-2xl mb-2" style={{ color: "#1A1A2E" }}>{t.customizer.modal.successTitle}</h3>
-            <p className="text-sm mb-4" style={{ color: "#666" }}>{t.customizer.modal.successDesc}</p>
-            <button onClick={() => { setOrderSent(false); setShowFormModal(false); }} className="w-full font-display text-lg py-4 rounded-2xl" style={{ background: "linear-gradient(135deg, #FFB800, #FF6B6B)", color: "white", boxShadow: "0 6px 20px rgba(255,184,0,0.35)" }}>{t.customizer.modal.closeBtn}</button>
           </div>
         </div>
       )}

@@ -100,6 +100,7 @@ export const hi = {
       total: "कुल:",
       sendBtn: "वेटलिस्ट में शामिल हों",
       sendingBtn: "भेज रहा है...",
+      joinedBtn: "शामिल हो गए",
       closeBtn: "बंद करें",
       enterDetails: "अपना विवरण दर्ज करें",
       name: "नाम",
