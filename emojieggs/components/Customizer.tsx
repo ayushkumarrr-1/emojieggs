@@ -144,8 +144,12 @@ export default function Customizer() {
             total: `₹${total}`,
           })
         });
-        if (res.ok) setOrderSent(true);
-        else console.error('Failed to send order email');
+        if (res.ok) {
+          setOrderSent(true);
+        } else {
+          console.error('Failed to send order email');
+          alert('Failed to send request. Please try again or check your configuration.');
+        }
       } catch (e) {
         console.error('Error sending order:', e);
       } finally {
