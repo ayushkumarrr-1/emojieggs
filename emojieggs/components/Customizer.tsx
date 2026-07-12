@@ -6,9 +6,9 @@ import { useLanguage } from "@/context/LanguageContext";
 const OCCASIONS_IDS = ["birthday", "love", "monday", "exam", "party", "morning", "health", "funny", "employees"];
 
 const PACKS_IDS = [
-  { id: "Half Dozen", qty: 6, price: 65 },
-  { id: "Full Dozen", qty: 12, price: 125 },
-  { id: "Double Dozen", qty: 24, price: 230 },
+  { id: "Half Dozen", qty: 6, price: 69 },
+  { id: "Full Dozen", qty: 12, price: 135 },
+  { id: "Double Dozen", qty: 24, price: 249 },
 ];
 
 const EXTRAS_IDS = [
