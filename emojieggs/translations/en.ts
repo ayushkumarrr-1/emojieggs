@@ -143,7 +143,7 @@ export const en = {
         theme: "Apology & making up",
         emojis: ["pleading", "sad", "🙏", "❤️", "🤍", "cry", "🌹", "🫶", "💌", "blush", "🤝", "teary_smile"],
         tagline: "Because some apologies deserve more than words.",
-        price: 139,
+        price: 149,
       },
       {
         id: "proposal",
@@ -151,7 +151,7 @@ export const en = {
         theme: "Propose your partner",
         emojis: ["🤵", "💍", "❤️", "🌹", "teary_smile", "✨", "🫶", "💖", "star_eyes", "💌", "🥂", "👰"],
         tagline: "The most unforgettable 'Will you marry me?'",
-        price: 139,
+        price: 149,
       },
       {
         id: "love",
@@ -159,7 +159,7 @@ export const en = {
         theme: "Romance & anniversaries",
         emojis: ["love_hearts", "kiss", "❤️", "star_eyes", "💖", "🫶", "💕", "🌹", "blush", "💋", "✨", "🤍"],
         tagline: "A dozen little ways to say 'I love you.'",
-        price: 139,
+        price: 149,
       },
       {
         id: "missing",
@@ -167,7 +167,7 @@ export const en = {
         theme: "Long-distance & nostalgia",
         emojis: ["teary_smile", "sad", "❤️", "🫂", "🌙", "💌", "kiss", "🤍", "✨", "pleading", "📱", "💖"],
         tagline: "Distance ends where emotions begin.",
-        price: 139,
+        price: 149,
       },
       {
         id: "hi",
@@ -175,7 +175,7 @@ export const en = {
         theme: "Breaking the ice & starting conversations",
         emojis: ["👋", "blush", "laugh", "🤝", "☕", "💬", "wink", "✨", "🌼", "happy", "💛", "🙌"],
         tagline: "The cutest way to say hello.",
-        price: 139,
+        price: 149,
       },
       {
         id: "story_sorry",
@@ -215,7 +215,7 @@ export const en = {
         theme: "Gym & Workout Motivation",
         emojis: ["🏋️‍♂️", "🧱", "🦅", "🛶", "🦖", "🦘", "🏔️", "🏹", "🦀", "🦏", "🍫", "🌪️"],
         tagline: "Fuel your gains with the ultimate fitness 12-pack.",
-        price: 129,
+        price: 149,
       }
     ]
   },

@@ -143,7 +143,7 @@ export const hi = {
         theme: "माफ़ी और सुलह",
         emojis: ["pleading", "sad", "🙏", "❤️", "🤍", "cry", "🌹", "🫶", "💌", "blush", "🤝", "teary_smile"],
         tagline: "क्योंकि कुछ माफ़ी शब्दों से बढ़कर होती है।",
-        price: 139,
+        price: 149,
       },
       {
         id: "proposal",
@@ -151,7 +151,7 @@ export const hi = {
         theme: "अपने साथी को प्रपोज करें",
         emojis: ["🤵", "💍", "❤️", "🌹", "teary_smile", "✨", "🫶", "💖", "star_eyes", "💌", "🥂", "👰"],
         tagline: "सबसे यादगार 'क्या तुम मुझसे शादी करोगी?'",
-        price: 139,
+        price: 149,
       },
       {
         id: "love",
@@ -159,7 +159,7 @@ export const hi = {
         theme: "रोमांस और सालगिरह",
         emojis: ["love_hearts", "kiss", "❤️", "star_eyes", "💖", "🫶", "💕", "🌹", "blush", "💋", "✨", "🤍"],
         tagline: "'मैं तुमसे प्यार करता हूँ' कहने के एक दर्जन छोटे तरीके।",
-        price: 139,
+        price: 149,
       },
       {
         id: "missing",
@@ -167,7 +167,7 @@ export const hi = {
         theme: "लंबी दूरी और यादें",
         emojis: ["teary_smile", "sad", "❤️", "🫂", "🌙", "💌", "kiss", "🤍", "✨", "pleading", "📱", "💖"],
         tagline: "दूरियाँ वहाँ खत्म होती हैं जहाँ भावनाएँ शुरू होती हैं।",
-        price: 139,
+        price: 149,
       },
       {
         id: "hi",
@@ -175,7 +175,7 @@ export const hi = {
         theme: "बातचीत शुरू करना",
         emojis: ["👋", "blush", "laugh", "🤝", "☕", "💬", "wink", "✨", "🌼", "happy", "💛", "🙌"],
         tagline: "हैलो कहने का सबसे प्यारा तरीका।",
-        price: 139,
+        price: 149,
       },
       {
         id: "story_sorry",
@@ -215,7 +215,7 @@ export const hi = {
         theme: "जिम और वर्कआउट मोटिवेशन",
         emojis: ["🏋️‍♂️", "🧱", "🦅", "🛶", "🦖", "🦘", "🏔️", "🏹", "🦀", "🦏", "🍫", "🌪️"],
         tagline: "अल्टीमेट फिटनेस 12-पैक के साथ अपने गेन्स को बढ़ाएं।",
-        price: 129,
+        price: 149,
       }
     ]
   },
